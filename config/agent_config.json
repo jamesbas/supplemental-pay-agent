@@ -1,0 +1,50 @@
+{
+  "version": "1.0.0",
+  "system": {
+    "name": "DXC Supplemental Pay AI Agent System",
+    "description": "AI agent system for analyzing and processing DXC's supplemental pay data"
+  },
+  "local_files": {
+    "data_dir": "${DATA_DIR}"
+  },
+  "azure_openai": {
+    "deployment_name": "${AZURE_OPENAI_DEPLOYMENT_NAME}",
+    "endpoint": "${AZURE_OPENAI_ENDPOINT}",
+    "api_key": "${AZURE_OPENAI_API_KEY}"
+  },
+  "agents": {
+    "policy_extraction": {
+      "name": "PolicyExtractionAgent",
+      "description": "Extracts and processes DXC policy documents related to supplemental pay",
+      "capabilities": ["CODE_INTERPRETER", "FILE_SEARCH", "REASONING"],
+      "temperature": 0.2,
+      "max_tokens": 4096
+    },
+    "pay_calculation": {
+      "name": "PayCalculationAgent",
+      "description": "Calculates supplemental pay and provides approval recommendations",
+      "capabilities": ["CODE_INTERPRETER", "REASONING"],
+      "temperature": 0.0,
+      "max_tokens": 4096
+    },
+    "analytics": {
+      "name": "AnalyticsAgent",
+      "description": "Analyzes supplemental pay data to identify trends, outliers, and opportunities",
+      "capabilities": ["CODE_INTERPRETER", "REASONING"],
+      "temperature": 0.1,
+      "max_tokens": 8192
+    }
+  },
+  "logging": {
+    "level": "${LOG_LEVEL}",
+    "file": "${LOG_FILE}"
+  },
+  "retry": {
+    "max_retries": "${MAX_RETRIES}",
+    "delay_seconds": "${RETRY_DELAY_SECONDS}"
+  },
+  "cache": {
+    "enabled": true,
+    "expiry_minutes": "${CACHE_EXPIRY_MINUTES}"
+  }
+} 

@@ -1,0 +1,47 @@
+{
+  "version": "1.0.0",
+  "connection": {
+    "site_url": "${SHAREPOINT_SITE_URL}",
+    "username": "${SHAREPOINT_USERNAME}",
+    "password": "${SHAREPOINT_PASSWORD}",
+    "timeout_seconds": 30
+  },
+  "document_library": {
+    "name": "Shared Documents",
+    "folder_path": "${SHAREPOINT_FOLDER_PATH}",
+    "default_document_types": [".xlsx", ".xls", ".docx", ".doc", ".pdf"]
+  },
+  "file_mapping": {
+    "employee_data": {
+      "pattern": "*EmpID_Legacy_Country_Payments_Hourly*",
+      "description": "Employee data file containing employee ID, name, payment terms, and hourly rate",
+      "required": true
+    },
+    "payment_terms": {
+      "pattern": "*Standby_Callout_Overtime_Shift_Payment*",
+      "description": "Payment terms file containing the payment terms definitions for overtime, standby, and callout",
+      "required": true
+    },
+    "hours_data": {
+      "pattern": "*Emp_Wage_Hours*",
+      "description": "Hours data file containing supplemental pay hours claimed by employees",
+      "required": true
+    },
+    "policy_documents": {
+      "pattern": "*.docx",
+      "description": "Policy documents containing DXC policies related to supplemental pay",
+      "required": false
+    }
+  },
+  "caching": {
+    "enabled": true,
+    "local_cache_directory": "./cache",
+    "max_cache_age_hours": 24
+  },
+  "retry": {
+    "max_retries": 3,
+    "initial_delay_seconds": 1,
+    "max_delay_seconds": 10,
+    "backoff_multiplier": 2.0
+  }
+} 

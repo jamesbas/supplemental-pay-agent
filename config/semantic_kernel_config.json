@@ -1,0 +1,54 @@
+{
+  "version": "1.0.0",
+  "kernel": {
+    "service_id": "azure_chat_completion",
+    "default_completion_service": "azure_chat_completion",
+    "plugins_directory": "../src/plugins"
+  },
+  "services": {
+    "azure_chat_completion": {
+      "type": "azure_openai",
+      "deployment_name": "${AZURE_OPENAI_DEPLOYMENT_NAME}",
+      "endpoint": "${AZURE_OPENAI_ENDPOINT}",
+      "api_key": "${AZURE_OPENAI_API_KEY}",
+      "api_version": "2023-12-01-preview"
+    }
+  },
+  "plugins": {
+    "PolicyPlugin": {
+      "enabled": true,
+      "functions": [
+        "ExtractPolicies",
+        "ValidateEligibility",
+        "InterpretPolicy"
+      ]
+    },
+    "CalculationPlugin": {
+      "enabled": true,
+      "functions": [
+        "CalculateOvertimePay",
+        "CalculateStandbyPay",
+        "CalculateCalloutPay",
+        "ValidatePaymentAmount"
+      ]
+    },
+    "AnalyticsPlugin": {
+      "enabled": true,
+      "functions": [
+        "IdentifyTrends",
+        "DetectOutliers",
+        "AnalyzeBillableVsInternal",
+        "GenerateRecommendations"
+      ]
+    }
+  },
+  "memory": {
+    "type": "volatile",
+    "collection_prefix": "dxc_suppay_"
+  },
+  "planner": {
+    "type": "action_planner",
+    "relevancy_threshold": 0.7,
+    "max_tokens": 2048
+  }
+} 
