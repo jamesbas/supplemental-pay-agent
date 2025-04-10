@@ -28,6 +28,275 @@ from src.agents.analytics_agent import AnalyticsAgent
 from src.data_access.local_file_connector import LocalFileConnector
 from src.data_access.excel_processor import ExcelProcessor
 
+class IntelligentOrchestratorAgent:
+    """
+    An intelligent agent that analyzes queries and routes them to appropriate specialized agents.
+    """
+    
+    def __init__(self, kernel: sk.Kernel):
+        """
+        Initialize the intelligent orchestrator agent.
+        
+        Args:
+            kernel: Semantic Kernel instance
+        """
+        self.logger = logging.getLogger(__name__)
+        self.kernel = kernel
+        
+        # Define agent capabilities and routing rules
+        self.agent_capabilities = {
+            "policy_extraction_agent": {
+                "keywords": ["policy", "policies", "rules", "guidelines", "standby", "callout", "eligibility"],
+                "description": "Handles policy-related queries and extracts policy information"
+            },
+            "pay_calculation_agent": {
+                "keywords": ["calculate", "calculation", "pay", "payment", "overtime", "hours", "rate"],
+                "description": "Handles pay calculation queries and determines payment amounts"
+            },
+            "analytics_agent": {
+                "keywords": ["analyze", "analysis", "trend", "pattern", "report", "statistics", "data"],
+                "description": "Handles data analysis queries and provides insights"
+            }
+        }
+        
+        # Define mapping from natural language agent names to system agent IDs
+        self.agent_name_mapping = {
+            "policy extraction agent": "policy_extraction_agent",
+            "pay calculation agent": "pay_calculation_agent",
+            "analytics agent": "analytics_agent",
+            "policy_extraction_agent": "policy_extraction_agent",
+            "pay_calculation_agent": "pay_calculation_agent",
+            "analytics_agent": "analytics_agent"
+        }
+        
+        # Add a simple query cache for performance (avoid re-analyzing similar queries)
+        self.query_cache = {}
+        self.cache_size_limit = 100  # Maximum number of cached queries
+        
+        # Initialize the routing function
+        self._initialize_routing_function()
+    
+    def _initialize_routing_function(self):
+        """Initialize the semantic function for query routing."""
+        routing_prompt = """
+        You are an intelligent query router for DXC's supplemental pay system.
+        Your job is to analyze user queries and determine which specialized agent should handle them.
+        
+        Available agents:
+        1. policy_extraction_agent: Handles policy-related queries about standby, callout, eligibility, etc.
+        2. pay_calculation_agent: Handles queries about calculating pay, overtime, hours, rates, etc.
+        3. analytics_agent: Handles queries about analyzing data, trends, patterns, reports, etc.
+        
+        Analyze the following query and determine:
+        1. Which agent(s) should handle it
+        2. The confidence level (0-1) for each agent
+        3. Any additional context needed
+        
+        Query: {{$query}}
+        
+        IMPORTANT: For the "primary_agent" field, use EXACTLY one of these agent IDs: "policy_extraction_agent", "pay_calculation_agent", "analytics_agent"
+        
+        Respond in JSON format with:
+        {
+            "primary_agent": "agent_id",
+            "confidence": 0.0-1.0,
+            "secondary_agents": ["agent_id1", "agent_id2"],
+            "context": "additional context for the agent"
+        }
+        """
+        
+        # Create a function from the prompt using the same pattern as used in PayCalculationAgent
+        from semantic_kernel.functions import KernelFunction
+        self.routing_function = KernelFunction.from_prompt(
+            function_name="route_query",
+            plugin_name="orchestrator",
+            description="Routes queries to appropriate specialized agents",
+            prompt=routing_prompt
+        )
+        self.logger.info("Created routing function using KernelFunction.from_prompt")
+    
+    def _normalize_agent_name(self, agent_name: str) -> str:
+        """
+        Normalize an agent name to match the expected agent ID format.
+        
+        Args:
+            agent_name: The agent name from the routing result
+            
+        Returns:
+            Normalized agent ID
+        """
+        if not agent_name:
+            return "policy_extraction_agent"  # Default fallback
+        
+        # Convert to lowercase for case-insensitive matching
+        normalized = agent_name.lower()
+        
+        # Try to map using the defined mapping
+        if normalized in self.agent_name_mapping:
+            return self.agent_name_mapping[normalized]
+        
+        # Try to handle variations
+        for key, value in self.agent_name_mapping.items():
+            if key in normalized or normalized in key:
+                return value
+        
+        # If no mapping found, return as is (will likely fail)
+        self.logger.warning(f"Could not map agent name '{agent_name}' to a known agent ID")
+        return agent_name
+    
+    def _get_fallback_agent_by_keywords(self, query: str) -> str:
+        """
+        Determine the most appropriate agent based on keyword matching when AI routing fails.
+        
+        Args:
+            query: The user's query
+            
+        Returns:
+            Most appropriate agent ID based on keyword matching
+        """
+        query_lower = query.lower()
+        
+        # Count matches for each agent type
+        agent_scores = {}
+        for agent_id, capabilities in self.agent_capabilities.items():
+            score = 0
+            for keyword in capabilities["keywords"]:
+                if keyword.lower() in query_lower:
+                    score += 1
+            agent_scores[agent_id] = score
+        
+        # Find the agent with the highest score
+        if agent_scores:
+            max_score = max(agent_scores.values())
+            if max_score > 0:
+                # Get the agent with the highest score
+                for agent_id, score in agent_scores.items():
+                    if score == max_score:
+                        self.logger.info(f"Fallback routing using keywords selected {agent_id} with score {score}")
+                        return agent_id
+        
+        # Default fallback if no keywords match
+        return "policy_extraction_agent"
+    
+    def _get_query_cache_key(self, query: str) -> str:
+        """Generate a simplified key for query caching"""
+        # Remove punctuation and extra whitespace, convert to lowercase
+        import re
+        simplified = re.sub(r'[^\w\s]', '', query.lower())
+        simplified = re.sub(r'\s+', ' ', simplified).strip()
+        # Take first 100 chars to keep keys manageable
+        return simplified[:100]
+    
+    def _manage_cache_size(self):
+        """Ensure cache doesn't grow too large"""
+        if len(self.query_cache) > self.cache_size_limit:
+            # Remove oldest 20% of entries when limit is reached
+            items_to_remove = int(self.cache_size_limit * 0.2)
+            for _ in range(items_to_remove):
+                if self.query_cache:
+                    self.query_cache.pop(next(iter(self.query_cache)))
+    
+    async def analyze_query(self, query: str) -> Dict[str, Any]:
+        """
+        Analyze a query to determine which agent should handle it.
+        
+        Args:
+            query: The user's query
+            
+        Returns:
+            Dictionary containing routing information
+        """
+        # Check if we have a cached result for a similar query
+        cache_key = self._get_query_cache_key(query)
+        if cache_key in self.query_cache:
+            cached_result = self.query_cache[cache_key]
+            self.logger.info(f"Using cached routing decision for similar query: {cached_result['primary_agent']}")
+            return cached_result.copy()
+        
+        try:
+            start_time = asyncio.get_event_loop().time()
+            
+            # Use semantic kernel to analyze the query - similar to how PayCalculationAgent does it
+            result = await self.kernel.invoke(
+                self.routing_function,
+                query=query
+            )
+            
+            # Parse the result as string
+            result_text = str(result)
+            
+            # Calculate response time for performance monitoring
+            end_time = asyncio.get_event_loop().time()
+            response_time = end_time - start_time
+            self.logger.info(f"Routing analysis completed in {response_time:.2f} seconds")
+            
+            # Parse JSON from the result text
+            try:
+                # Look for JSON in the response
+                start_idx = result_text.find('{')
+                end_idx = result_text.rfind('}')
+                
+                if start_idx >= 0 and end_idx > start_idx:
+                    json_str = result_text[start_idx:end_idx+1]
+                    routing_info = json.loads(json_str)
+                else:
+                    # If no JSON found, use keyword-based fallback
+                    self.logger.warning("No valid JSON found in routing response, using keyword fallback")
+                    fallback_agent = self._get_fallback_agent_by_keywords(query)
+                    routing_info = {
+                        "primary_agent": fallback_agent,
+                        "confidence": 0.4,  # Lower confidence for keyword-based routing
+                        "secondary_agents": [],
+                        "context": "Fallback routing used due to missing JSON in response"
+                    }
+            except json.JSONDecodeError:
+                self.logger.warning("Could not parse JSON from routing response, using keyword fallback")
+                fallback_agent = self._get_fallback_agent_by_keywords(query)
+                routing_info = {
+                    "primary_agent": fallback_agent,
+                    "confidence": 0.4,  # Lower confidence for keyword-based routing
+                    "secondary_agents": [],
+                    "context": "Fallback routing used due to JSON parse error"
+                }
+            
+            # Validate the routing info
+            if not isinstance(routing_info, dict):
+                raise ValueError("Invalid routing information format")
+            
+            # Normalize agent names to match expected agent IDs
+            if "primary_agent" in routing_info:
+                routing_info["primary_agent"] = self._normalize_agent_name(routing_info["primary_agent"])
+            else:
+                routing_info["primary_agent"] = self._get_fallback_agent_by_keywords(query)
+                
+            # Normalize secondary agents too
+            if "secondary_agents" in routing_info and isinstance(routing_info["secondary_agents"], list):
+                routing_info["secondary_agents"] = [
+                    self._normalize_agent_name(agent) for agent in routing_info["secondary_agents"]
+                ]
+            
+            # Add query to the cache
+            self.query_cache[cache_key] = routing_info.copy()
+            self._manage_cache_size()
+            
+            # Log detailed information about the routing decision
+            self.logger.info(f"Query: '{query[:50]}...' -> Primary: {routing_info['primary_agent']}, " +
+                          f"Confidence: {routing_info.get('confidence', 'Not specified')}, " +
+                          f"Secondary: {routing_info.get('secondary_agents', [])}")
+            
+            return routing_info
+            
+        except Exception as e:
+            self.logger.error(f"Error analyzing query: {str(e)}")
+            # Use keyword-based fallback in case of errors
+            fallback_agent = self._get_fallback_agent_by_keywords(query)
+            return {
+                "primary_agent": fallback_agent,
+                "confidence": 0.3,  # Even lower confidence for error fallback
+                "secondary_agents": [],
+                "context": f"Error in query analysis: {str(e)}, using keyword-based fallback"
+            }
+
 class DummyAgent:
     """A dummy agent implementation that does nothing. Used as a fallback."""
     
@@ -111,6 +380,9 @@ class AzureAgentOrchestrator:
         
         # Initialize semantic kernel
         self.kernel = self._initialize_kernel()
+        
+        # Initialize the intelligent orchestrator agent
+        self.orchestrator_agent = IntelligentOrchestratorAgent(self.kernel)
     
     def _load_config(self, config_path_or_dict) -> Dict[str, Any]:
         """Load configuration from a JSON file or directly from a dictionary.
@@ -334,7 +606,7 @@ class AzureAgentOrchestrator:
             raise
     
     async def route_request(self, query: str, role: str = None, parameters: Dict[str, Any] = None) -> Dict[str, Any]:
-        """Routes a user query to the appropriate agent based on the user's role.
+        """Routes a user query to the appropriate agent based on intelligent analysis.
         
         Args:
             query (str): The user query.
@@ -347,30 +619,53 @@ class AzureAgentOrchestrator:
         if parameters is None:
             parameters = {}
             
-        self.logger.info(f"Routing request: {query} (role: {role})")
+        self.logger.info(f"Routing request: {query}")
         
-        # Get the appropriate agent based on the role
-        agent_id = None
-        if role == "HR":
-            agent_id = self.agent_ids.get("hr")
-            self.logger.info("Using HR agent")
-        elif role == "manager":
-            agent_id = self.agent_ids.get("manager")
-            self.logger.info("Using Manager agent")
-        elif role == "payroll":
-            agent_id = self.agent_ids.get("payroll")
-            self.logger.info("Using Payroll agent")
-        else:
-            self.logger.warning(f"Unknown role: {role}, using default agent")
-            # Use the first agent as default if role not specified
-            agent_id = next(iter(self.agent_ids.values()), None)
-            
-        if agent_id is None:
-            error_message = f"No agent found for role: {role}"
-            self.logger.error(error_message)
-            return {"error": error_message}
-            
         try:
+            # Use the intelligent orchestrator to analyze the query
+            routing_info = await self.orchestrator_agent.analyze_query(query)
+            
+            # Get the primary agent ID
+            agent_type = routing_info["primary_agent"]
+            agent_id = self.agent_ids.get(agent_type)
+            
+            if not agent_id:
+                self.logger.warning(f"No agent found for type: {agent_type}, trying to find alternative agent")
+                
+                # Try to find an alternative agent if the exact match isn't found
+                for available_agent_type, available_agent_id in self.agent_ids.items():
+                    # Check if the agent type is contained in or contains the available agent type
+                    if agent_type in available_agent_type or available_agent_type in agent_type:
+                        self.logger.info(f"Found alternative agent: {available_agent_type} for {agent_type}")
+                        agent_id = available_agent_id
+                        break
+                        
+                # If still no agent found, try secondary agents
+                if not agent_id and "secondary_agents" in routing_info:
+                    for secondary_agent in routing_info["secondary_agents"]:
+                        if secondary_agent in self.agent_ids:
+                            self.logger.info(f"Using secondary agent: {secondary_agent} as fallback")
+                            agent_id = self.agent_ids[secondary_agent]
+                            break
+                
+                # If still no agent found, use the first available agent
+                if not agent_id and self.agent_ids:
+                    fallback_agent_type = next(iter(self.agent_ids))
+                    agent_id = self.agent_ids[fallback_agent_type]
+                    self.logger.warning(f"Using fallback agent: {fallback_agent_type}")
+                    routing_info["context"] += f" (Fallback to {fallback_agent_type} used)"
+                
+                # If still no agent found, return error
+                if not agent_id:
+                    error_message = f"No agent found for type: {agent_type} and no fallbacks available"
+                    self.logger.error(error_message)
+                    return {"error": error_message}
+            
+            # Add routing context to parameters
+            parameters["routing_context"] = routing_info.get("context", "")
+            parameters["confidence"] = routing_info.get("confidence", 0.0)
+            parameters["agent_type"] = agent_type
+            
             # Create a new thread
             thread = self.project_client.agents.create_thread()
             thread_id = thread.id
@@ -382,15 +677,17 @@ class AzureAgentOrchestrator:
                 context_info = "\n\nContext:\n" + "\n".join([f"{k}: {v}" for k, v in parameters.items()])
                 message_content += context_info
             
-            # Call the new _run_agent method (with better error handling and debug options)
-            disable_tools = parameters.get("disable_tools", False)
-            response = await self._run_agent(thread_id, agent_id, message_content, disable_tools)
+            # Call the agent
+            response = await self._run_agent(thread_id, agent_id, message_content)
             
-            # The _run_agent method now returns structured responses with either result or error
             if response is None:
                 error_message = "Failed to get response from agent"
                 self.logger.error(error_message)
                 return {"error": error_message, "thread_id": thread_id}
+            
+            # Add routing information to the response
+            response["routing_info"] = routing_info
+            response["agent_type"] = agent_type
             
             return response
             
