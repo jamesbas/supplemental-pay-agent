@@ -64,14 +64,37 @@ AZURE_OPENAI_API_KEY=your_api_key
 AZURE_OPENAI_ENDPOINT=your_endpoint
 AZURE_OPENAI_DEPLOYMENT_NAME=gpt-4o
 
+# Azure AI credentials and project settings
+AZURE_AI_API_KEY=your_ai_api_key
+AZURE_AI_ENDPOINT=your_ai_endpoint
+AZURE_AI_PROJECT_ID=your_ai_project_id
+
 # Azure AI Agent Service
 AZURE_SUBSCRIPTION_ID=your_subscription_id
 AZURE_RESOURCE_GROUP=your_resource_group
 AZURE_PROJECT_NAME=your_project_name
 AZURE_AI_HOSTNAME=eastus.api.azureml.ms
 
+# Azure AI Agent Service connection string
+AIPROJECT_CONNECTION_STRING=your_connection_string
+
+# Optional: Azure AD service principal settings (if using service principal authentication)
+# AZURE_TENANT_ID=your_tenant_id
+# AZURE_CLIENT_ID=your_client_id
+# AZURE_CLIENT_SECRET=your_client_secret
+
 # Local data directory
 DATA_DIR=data
+
+# Logging configuration
+LOG_LEVEL=INFO
+LOG_FILE=logs/supplemental_pay_agent.log
+
+# Application settings
+DEBUG_MODE=false
+CACHE_EXPIRY_MINUTES=60
+MAX_RETRIES=3
+RETRY_DELAY_SECONDS=2
 ```
 
 5. Place your Excel files in the `data` directory:
