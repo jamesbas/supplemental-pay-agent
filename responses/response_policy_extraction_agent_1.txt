@@ -1,0 +1,1 @@
+I have successfully extracted and cleaned the standby payment data for UK employees. The table contains different pay groups and their associated standby policies. Let me summarize the key details for clarity:

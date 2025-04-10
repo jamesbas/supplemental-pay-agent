@@ -60,7 +60,7 @@ def parse_args():
     parser.add_argument('--debug', action='store_true', help='Enable debug mode')
     parser.add_argument('--test-model', type=str, help='Specify a model to test with')
     parser.add_argument('--disable-tools', action='store_true', help='Disable tools for all tests')
-    parser.add_argument('--test-type', choices=['all', 'deployment', 'simple', 'excel', 'orchestrator'], 
+    parser.add_argument('--test-type', choices=['all', 'deployment', 'simple', 'excel', 'orchestrator', 'intelligent_orchestrator'], 
                         default='all', help='Type of test to run')
     return parser.parse_args()
 
@@ -353,6 +353,143 @@ async def test_agent_orchestrator(debug_mode=False, test_model=None, disable_too
         logger.error(f"Error testing agent orchestrator: {str(e)}", exc_info=True)
         return {"error": str(e)}
 
+async def test_intelligent_orchestrator(debug_mode=False, test_model=None, disable_tools=False):
+    """Test the Intelligent Orchestrator Agent functionality"""
+    logger.info("\n=== Testing Intelligent Orchestrator Agent ===\n")
+    
+    try:
+        # Load config from environment variables
+        config = {
+            "azure_openai": {
+                "deployment_name": test_model or os.environ.get("AZURE_OPENAI_DEPLOYMENT_NAME"),
+                "api_key": os.environ.get("AZURE_OPENAI_API_KEY"),
+                "endpoint": os.environ.get("AZURE_OPENAI_ENDPOINT")
+            },
+            "azure_subscription_id": os.environ.get("AZURE_SUBSCRIPTION_ID"),
+            "azure_resource_group": os.environ.get("AZURE_RESOURCE_GROUP"),
+            "azure_project_name": os.environ.get("AZURE_PROJECT_NAME"),
+            "azure_ai_hostname": os.environ.get("AZURE_AI_HOSTNAME"),
+            "local_files": {
+                "data_dir": os.environ.get("DATA_DIR", "data")
+            }
+        }
+        
+        # Initialize orchestrator
+        logger.info("Initializing Azure Agent Orchestrator...")
+        orchestrator = AzureAgentOrchestrator(config)
+        
+        # Display available agent IDs for debugging
+        logger.info(f"Available agent IDs: {orchestrator.agent_ids}")
+        
+        # Deploy agents if needed using the updated AzureAgentDefinitions with debug mode
+        if not orchestrator.agent_ids:
+            logger.info("Deploying agents...")
+            agent_definitions = AzureAgentDefinitions(config, debug_mode=debug_mode)
+            orchestrator.agent_ids = await agent_definitions.deploy_agents()
+            logger.info(f"Deployed agent IDs: {orchestrator.agent_ids}")
+        
+        # Test queries for different agent types
+        test_queries = [
+            {
+                "query": "What are the current standby payment policies for UK employees?",
+                "expected_agent": "policy_extraction_agent",
+                "description": "Policy extraction query"
+            },
+            {
+                "query": "Calculate the appropriate supplemental pay for overtime work for employee 10000518",
+                "expected_agent": "pay_calculation_agent",
+                "description": "Pay calculation query"
+            },
+            {
+                "query": "Identify trends in supplemental pay over the last quarter",
+                "expected_agent": "analytics_agent",
+                "description": "Analytics query"
+            },
+            {
+                "query": "For a UK employee working standby, what payment should they receive and what policy covers this?",
+                "expected_agent": "policy_extraction_agent",  # This is ambiguous and could go to either policy or calculation
+                "description": "Mixed policy and calculation query"
+            }
+        ]
+        
+        # Add an ambiguous query to test fallback mechanisms
+        test_queries.append({
+            "query": "I need help with a payment issue related to policies",
+            "expected_agent": "policy_extraction_agent", 
+            "description": "Ambiguous query for testing fallback"
+        })
+        
+        results = []
+        
+        # Test each query with the intelligent orchestrator
+        for test_case in test_queries:
+            query = test_case["query"]
+            expected_agent = test_case["expected_agent"]
+            description = test_case["description"]
+            
+            logger.info(f"\nTesting orchestrator with query: {query}")
+            logger.info(f"Expected agent: {expected_agent}")
+            
+            # First test just the routing decision without calling the agent
+            routing_info = await orchestrator.orchestrator_agent.analyze_query(query)
+            
+            logger.info(f"Routing decision: {json.dumps(routing_info, indent=2)}")
+            
+            # Check if routing matches expectation
+            routing_correct = routing_info.get("primary_agent") == expected_agent
+            
+            # Now test the full route_request function
+            response = await orchestrator.route_request(query)
+            
+            result = {
+                "query": query,
+                "description": description,
+                "expected_agent": expected_agent,
+                "routed_to": routing_info.get("primary_agent"),
+                "routing_correct": routing_correct,
+                "confidence": routing_info.get("confidence"),
+                "response": response.get("result", "No result") if "error" not in response else f"Error: {response.get('error')}"
+            }
+            
+            results.append(result)
+            
+            # Log the result without using Unicode checkmarks (Windows console compatibility)
+            if routing_correct:
+                logger.info(f"[CORRECT] Routing: {query} -> {routing_info.get('primary_agent')}")
+            else:
+                logger.warning(f"[INCORRECT] Routing: {query} -> {routing_info.get('primary_agent')} (expected {expected_agent})")
+            
+            if "error" in response:
+                logger.error(f"Error in response: {response['error']}")
+            else:
+                # Show a larger portion of the response (up to 300 chars)
+                result_text = response.get("result", "No result")
+                logger.info(f"Response from {routing_info.get('primary_agent')}:\n{result_text[:300]}...\n")
+                
+                # Save full response to file for detailed review
+                try:
+                    os.makedirs("responses", exist_ok=True)
+                    safe_filename = f"response_{routing_info.get('primary_agent')}_{test_queries.index(test_case)+1}.txt"
+                    with open(os.path.join("responses", safe_filename), "w", encoding="utf-8") as f:
+                        f.write(result_text)
+                    logger.info(f"Full response saved to responses/{safe_filename}")
+                except Exception as e:
+                    logger.warning(f"Could not save response to file: {str(e)}")
+        
+        # Summarize the results
+        correct_count = sum(1 for r in results if r["routing_correct"])
+        logger.info(f"\nIntelligent Orchestrator Test Summary: {correct_count}/{len(results)} correct routings")
+        
+        return {
+            "results": results,
+            "correct_count": correct_count,
+            "total_count": len(results)
+        }
+    
+    except Exception as e:
+        logger.error(f"Error testing intelligent orchestrator: {str(e)}", exc_info=True)
+        return {"error": str(e)}
+
 async def main():
     """Main test function"""
     args = parse_args()
@@ -372,6 +509,7 @@ async def main():
         run_simple = args.test_type in ['all', 'simple']
         run_excel = args.test_type in ['all', 'excel']
         run_orchestrator = args.test_type in ['all', 'orchestrator']
+        run_intelligent_orchestrator = args.test_type in ['all', 'intelligent_orchestrator']
         
         agent_ids = None
         if run_deployment:
@@ -431,13 +569,40 @@ async def main():
             
                 if success_count > 0:
                     logger.info(f"{success_count} of {len(results)} tests completed successfully!")
-                    return 0
                 else:
                     logger.error("All tests failed.")
                     return 1
             else:
                 error_msg = results.get("error", "Unknown error") if isinstance(results, dict) else "Failed to get valid results"
                 logger.error(f"Orchestrator tests failed: {error_msg}")
+                return 1
+        
+        # Test the intelligent orchestrator if requested
+        if run_intelligent_orchestrator:
+            logger.info("\nTesting the intelligent orchestrator...")
+            orchestrator_results = await test_intelligent_orchestrator(
+                debug_mode=args.debug,
+                test_model=args.test_model,
+                disable_tools=args.disable_tools
+            )
+            
+            if isinstance(orchestrator_results, dict) and not orchestrator_results.get("error"):
+                correct_count = orchestrator_results.get("correct_count", 0)
+                total_count = orchestrator_results.get("total_count", 0)
+                
+                if correct_count > 0:
+                    logger.info(f"Intelligent orchestrator test: {correct_count}/{total_count} correct routings")
+                    
+                    # Log detailed results - use ASCII symbols instead of Unicode for Windows compatibility
+                    for i, result in enumerate(orchestrator_results.get("results", [])):
+                        status = "[+]" if result["routing_correct"] else "[-]"
+                        logger.info(f"{status} Test {i+1}: {result['description']} - routed to {result['routed_to']}")
+                else:
+                    logger.error("Intelligent orchestrator failed all routing tests")
+                    return 1
+            else:
+                error_msg = orchestrator_results.get("error", "Unknown error")
+                logger.error(f"Intelligent orchestrator test failed: {error_msg}")
                 return 1
                 
         return 0

@@ -106,6 +106,70 @@ python src/azure_agent_orchestrator.py
 - "Compare supplemental pay between departments"
 - "What percentage of supplemental pay is billable to clients?"
 
+## Testing
+
+The system includes comprehensive testing capabilities through the `test_azure_agent_service.py` script. This allows testing individual components or the complete system.
+
+### Test Types
+
+The following test types are available:
+
+```bash
+# Test agent deployment only
+python test_azure_agent_service.py --test-type deployment
+
+# Test a single agent with a simple query
+python test_azure_agent_service.py --test-type simple
+
+# Test Excel file analysis with code interpreter
+python test_azure_agent_service.py --test-type excel
+
+# Test all agents with predefined queries
+python test_azure_agent_service.py --test-type orchestrator
+
+# Test the intelligent orchestrator for query routing
+python test_azure_agent_service.py --test-type intelligent_orchestrator
+
+# Run all test types
+python test_azure_agent_service.py --test-type all
+```
+
+### Additional Parameters
+
+```bash
+# Enable debug mode for more detailed logging
+python test_azure_agent_service.py --debug
+
+# Test with a specific model
+python test_azure_agent_service.py --test-model gpt-4o
+
+# Disable tools for testing core AI capabilities without tools
+python test_azure_agent_service.py --disable-tools
+```
+
+### Combined Examples
+
+```bash
+# Run only the intelligent orchestrator test in debug mode
+python test_azure_agent_service.py --test-type intelligent_orchestrator --debug
+
+# Test a specific model with the intelligent orchestrator
+python test_azure_agent_service.py --test-type intelligent_orchestrator --test-model gpt-4o
+
+# Test deployment with a specific model in debug mode
+python test_azure_agent_service.py --test-type deployment --test-model gpt-4o --debug
+
+# Test all components with tools disabled
+python test_azure_agent_service.py --test-type all --disable-tools
+```
+
+### Output Locations
+
+- Console output shows test progress and summary results
+- Detailed logs are saved to `azure_agent_test.log`
+- Complete agent responses are saved to the `responses/` directory
+- Any generated files (images, etc.) are saved to the `output/` directory
+
 ## Development
 
 ### Project Structure
