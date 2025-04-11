@@ -193,7 +193,7 @@ class AzureAgentDefinitions:
             self._initialize_project_client()
         
         # Get authentication token for direct API calls
-        token = self.credential.get_token("https://ml.azure.com/").token
+        token = self.credential.get_token("https://ml.azure.com/.default").token
         
         # Headers for API requests
         headers = {
