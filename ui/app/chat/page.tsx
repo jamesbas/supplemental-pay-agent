@@ -48,7 +48,8 @@ export default function ChatPage() {
   const welcomeMessages = {
     hr: "Welcome to the HR Team portal. I can help you retrieve and interpret DXC policy documents related to supplemental pay. What would you like to know?",
     manager: "Welcome to the People Manager portal. I can help you calculate supplemental pay and provide approval recommendations for your team members. What would you like to calculate?",
-    payroll: "Welcome to the Payroll Manager portal. I can help you analyze supplemental pay data to identify trends, outliers, and ensure policy compliance. What would you like to analyze?"
+    payroll: "Welcome to the Payroll Manager portal. I can help you analyze supplemental pay data to identify trends, outliers, and ensure policy compliance. What would you like to analyze?",
+    intelligent: "Welcome to the Intelligent Supplemental Pay portal. I can answer any questions you have about supplemental pay policies, calculations, and analytics. How can I assist you today?"
   }
 
   // Initialize chat with system message
@@ -188,6 +189,8 @@ export default function ChatPage() {
         return "Pay Calculation Agent"
       case "payroll":
         return "Analytics Agent"
+      case "intelligent":
+        return "Intelligent Supplemental Pay Agent"
       default:
         return "AI Agent"
     }
@@ -257,6 +260,8 @@ export default function ChatPage() {
                   value={testType}
                   onChange={(e) => setTestType(e.target.value)}
                   className="w-full sm:w-auto rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                  title="Test Mode Selection"
+                  aria-label="Select test mode"
                 >
                   {TEST_TYPES.map(type => (
                     <option key={type.id} value={type.id}>{type.label}</option>
@@ -356,6 +361,7 @@ export default function ChatPage() {
                         <button 
                           onClick={() => removeFile(index)}
                           className="ml-2 text-muted-foreground hover:text-destructive"
+                          aria-label={`Remove ${file.name}`}
                         >
                           <FiX className="h-4 w-4" />
                         </button>
@@ -381,12 +387,15 @@ export default function ChatPage() {
                   onChange={handleFileUpload}
                   className="hidden"
                   multiple
+                  title="Upload files"
+                  aria-label="Upload files"
                 />
                 <button
                   type="button"
                   onClick={() => fileInputRef.current?.click()}
                   className="flex-none rounded-md border border-input bg-background p-2 text-muted-foreground hover:bg-accent hover:text-accent-foreground"
                   disabled={isLoading}
+                  aria-label="Upload files"
                 >
                   <FiUpload className="h-5 w-5" />
                 </button>
@@ -402,6 +411,7 @@ export default function ChatPage() {
                   type="submit"
                   className="flex-none rounded-md bg-primary p-2 text-primary-foreground hover:bg-primary/90"
                   disabled={isLoading}
+                  aria-label="Send message"
                 >
                   <FiSend className="h-5 w-5" />
                 </button>

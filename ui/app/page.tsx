@@ -4,7 +4,7 @@ import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
-import { FiUser, FiDollarSign, FiUsers } from "react-icons/fi"
+import { FiUser, FiDollarSign, FiUsers, FiZap } from "react-icons/fi"
 
 export default function HomePage() {
   const router = useRouter()
@@ -67,6 +67,17 @@ export default function HomePage() {
               onClick={() => handleRoleSelect("payroll")}
               selected={selectedRole === "payroll"}
             />
+            <div className="col-span-1 sm:col-span-3 flex justify-center">
+              <div className="w-full sm:w-1/3">
+                <RoleCard
+                  title="Intelligent Supplemental Pay"
+                  description="Intelligent Agent for All questions on Supplemental Pay"
+                  icon={<FiZap className="h-8 w-8" />}
+                  onClick={() => handleRoleSelect("intelligent")}
+                  selected={selectedRole === "intelligent"}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </main>
