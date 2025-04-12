@@ -629,6 +629,10 @@ class AzureAgentOrchestrator:
             agent_type = routing_info["primary_agent"]
             agent_id = self.agent_ids.get(agent_type)
             
+            # Log detailed information about the routing decision
+            self.logger.info(f"Routing decision: {json.dumps(routing_info, indent=2)}")
+            self.logger.info(f"Selected agent: {agent_type} with ID: {agent_id}")
+            
             if not agent_id:
                 self.logger.warning(f"No agent found for type: {agent_type}, trying to find alternative agent")
                 
@@ -665,6 +669,17 @@ class AzureAgentOrchestrator:
             parameters["routing_context"] = routing_info.get("context", "")
             parameters["confidence"] = routing_info.get("confidence", 0.0)
             parameters["agent_type"] = agent_type
+            
+            # Special handling for pay calculation queries - include additional context
+            if agent_type == "pay_calculation_agent" and "overtime" in query.lower() and "employee" in query.lower():
+                # Add additional context to make responses more direct like the test script
+                parameters["direct_response"] = True
+                parameters["calculation_context"] = """
+                This appears to be a supplemental pay calculation query. 
+                Respond with a direct calculation if possible, without asking for additional information.
+                If you don't have enough information, provide a clear, detailed response about what you need.
+                Use standard overtime rates where policy isn't specified (1.5x base rate).
+                """
             
             # Create a new thread
             thread = self.project_client.agents.create_thread()
