@@ -2452,3 +2452,2333 @@ Response headers:
     'x-request-time': 'REDACTED'
     'Content-Encoding': 'REDACTED'
 2025-04-09 11:48:24,985 - werkzeug - INFO - 127.0.0.1 - - [09/Apr/2025 11:48:24] "POST /api/chat HTTP/1.1" 200 -
+2025-04-12 00:57:25,842 - __main__ - INFO - Starting API server on port 5000
+2025-04-12 00:57:26,329 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.0.0.248:5000
+2025-04-12 00:57:26,329 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-04-12 00:57:26,346 - werkzeug - INFO -  * Restarting with stat
+2025-04-12 00:57:32,109 - __main__ - INFO - Starting API server on port 5000
+2025-04-12 00:57:32,134 - werkzeug - WARNING -  * Debugger is active!
+2025-04-12 00:57:32,141 - werkzeug - INFO -  * Debugger PIN: 141-708-232
+2025-04-12 00:58:05,171 - __main__ - INFO - Received chat request: role=hr, test_type=default, disable_tools=False
+2025-04-12 00:58:05,171 - __main__ - INFO - Initializing Azure Agent Orchestrator
+2025-04-12 00:58:05,171 - AzureAgentOrchestrator - INFO - Using provided configuration dictionary
+2025-04-12 00:58:05,171 - azure.identity._credentials.environment - INFO - No environment configuration found.
+2025-04-12 00:58:05,321 - azure.identity._credentials.managed_identity - INFO - ManagedIdentityCredential will use IMDS
+2025-04-12 00:58:05,321 - AzureAgentOrchestrator - INFO - Successfully initialized AIProjectClient
+2025-04-12 00:58:05,321 - AzureAgentOrchestrator - WARNING - No agent ID found for role: hr
+2025-04-12 00:58:05,321 - AzureAgentOrchestrator - WARNING - No agent ID found for role: manager
+2025-04-12 00:58:05,321 - AzureAgentOrchestrator - WARNING - No agent ID found for role: payroll
+2025-04-12 00:58:05,321 - src.orchestration.azure_agent_definitions - INFO - Initializing Azure Agent Definitions
+2025-04-12 00:58:05,321 - azure.identity._credentials.environment - INFO - No environment configuration found.
+2025-04-12 00:58:05,321 - azure.identity._credentials.managed_identity - INFO - ManagedIdentityCredential will use IMDS
+2025-04-12 00:58:05,321 - src.orchestration.azure_agent_definitions - INFO - Azure Agent Definitions initialized
+2025-04-12 00:58:05,321 - AzureAgentOrchestrator - INFO - Azure Agent Orchestrator initialized
+2025-04-12 00:58:05,321 - AzureAgentOrchestrator - INFO - Using data directory: data
+2025-04-12 00:58:05,321 - AzureAgentOrchestrator - ERROR - Failed to initialize tool executor: 'str' object has no attribute 'get'
+2025-04-12 00:58:06,768 - AzureAgentOrchestrator - INFO - Initialized Azure OpenAI service with model: gpt-4o
+2025-04-12 00:58:06,838 - src.orchestration.azure_agent_orchestrator - INFO - Created routing function using KernelFunction.from_prompt
+2025-04-12 00:58:06,853 - __main__ - INFO - Deploying agents...
+2025-04-12 00:58:06,853 - src.orchestration.azure_agent_definitions - INFO - Initializing Azure Agent Definitions
+2025-04-12 00:58:06,853 - azure.identity._credentials.environment - INFO - No environment configuration found.
+2025-04-12 00:58:06,854 - azure.identity._credentials.managed_identity - INFO - ManagedIdentityCredential will use IMDS
+2025-04-12 00:58:06,854 - src.orchestration.azure_agent_definitions - INFO - Azure Agent Definitions initialized
+2025-04-12 00:58:06,854 - src.orchestration.azure_agent_definitions - INFO - Debug mode enabled with endpoint: https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project
+2025-04-12 00:58:06,854 - src.orchestration.azure_agent_definitions - INFO - Using data directory: data
+2025-04-12 00:58:06,854 - src.orchestration.azure_agent_definitions - INFO - Deploying agents to Azure AI Agent Service
+2025-04-12 00:58:06,854 - src.orchestration.azure_agent_definitions - INFO - Successfully initialized AIProjectClient for file uploads
+2025-04-12 00:58:06,854 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'http://169.254.169.254/metadata/identity/oauth2/token?api-version=REDACTED&resource=REDACTED'
+Request method: 'GET'
+Request headers:
+    'User-Agent': 'azsdk-python-identity/1.21.0 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+No body was attached to the request
+2025-04-12 00:58:12,457 - azure.identity._credentials.chained - INFO - DefaultAzureCredential acquired a token from AzureCliCredential
+2025-04-12 00:58:12,459 - src.orchestration.azure_agent_definitions - INFO - Found 3 Excel/CSV files: Emp_Wage_Hours_Sep24_Oct24_Nov24_Dec24_Jan25_Feb25.xlsx, UK EmpID_Legacy_Country_Payments_Hourly Rate.xlsx, UK Standby_Callout_Overtime_Shift_Payment.xlsx
+2025-04-12 00:58:12,459 - src.orchestration.azure_agent_definitions - INFO - Uploading file: data\Emp_Wage_Hours_Sep24_Oct24_Nov24_Dec24_Jan25_Feb25.xlsx
+2025-04-12 00:58:14,506 - azure.identity._internal.decorators - INFO - AzureCliCredential.get_token_info succeeded
+2025-04-12 00:58:14,506 - azure.identity._credentials.default - INFO - DefaultAzureCredential acquired a token from AzureCliCredential
+2025-04-12 00:58:14,506 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/files?api-version=REDACTED'
+Request method: 'POST'
+Request headers:
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'bc771713-175a-11f0-943d-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+A body is sent with the request
+2025-04-12 00:58:17,811 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 04:58:17 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Access-Control-Allow-Origin': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 00:58:17,847 - src.orchestration.azure_agent_definitions - INFO - Successfully uploaded Emp_Wage_Hours_Sep24_Oct24_Nov24_Dec24_Jan25_Feb25.xlsx with ID: assistant-P2BmRxTu928ehuWt586u7j
+2025-04-12 00:58:17,856 - src.orchestration.azure_agent_definitions - INFO - Uploading file: data\UK EmpID_Legacy_Country_Payments_Hourly Rate.xlsx
+2025-04-12 00:58:17,890 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/files?api-version=REDACTED'
+Request method: 'POST'
+Request headers:
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'bfaf2750-175a-11f0-a5b2-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+A body is sent with the request
+2025-04-12 00:58:27,810 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 04:58:27 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Access-Control-Allow-Origin': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 00:58:27,810 - src.orchestration.azure_agent_definitions - INFO - Successfully uploaded UK EmpID_Legacy_Country_Payments_Hourly Rate.xlsx with ID: assistant-7HXkzv9ZztDrmJj4esuLrp
+2025-04-12 00:58:27,810 - src.orchestration.azure_agent_definitions - INFO - Uploading file: data\UK Standby_Callout_Overtime_Shift_Payment.xlsx
+2025-04-12 00:58:27,834 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/files?api-version=REDACTED'
+Request method: 'POST'
+Request headers:
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'c59c7596-175a-11f0-a96a-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+A body is sent with the request
+2025-04-12 00:58:29,489 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 04:58:28 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Access-Control-Allow-Origin': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 00:58:29,492 - src.orchestration.azure_agent_definitions - INFO - Successfully uploaded UK Standby_Callout_Overtime_Shift_Payment.xlsx with ID: assistant-8SM2ZJUwgLYKA4D5ESkgMm
+2025-04-12 00:58:29,493 - src.orchestration.azure_agent_definitions - INFO - Successfully uploaded 3 Excel files for Code Interpreter
+2025-04-12 00:58:29,493 - src.orchestration.azure_agent_definitions - INFO - Deploying agent: policy_extraction_agent
+2025-04-12 00:58:29,493 - src.orchestration.azure_agent_definitions - INFO - Using model: gpt-4o
+2025-04-12 00:58:29,493 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/assistants?api-version=REDACTED'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/json'
+    'Content-Length': '1544'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'c6999720-175a-11f0-a919-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+A body is sent with the request
+2025-04-12 00:58:30,177 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 04:58:29 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'openai-organization': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 00:58:30,177 - src.orchestration.azure_agent_definitions - INFO - Successfully deployed agent policy_extraction_agent with ID asst_wiiXogKXCmGxOk8NHAqrWJ8g
+2025-04-12 00:58:30,177 - src.orchestration.azure_agent_definitions - INFO - Deploying agent: pay_calculation_agent
+2025-04-12 00:58:30,177 - src.orchestration.azure_agent_definitions - INFO - Using model: gpt-4o
+2025-04-12 00:58:30,177 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/assistants?api-version=REDACTED'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/json'
+    'Content-Length': '1518'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'c701ff9a-175a-11f0-bd50-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+A body is sent with the request
+2025-04-12 00:58:30,737 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 04:58:30 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'openai-organization': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 00:58:30,739 - src.orchestration.azure_agent_definitions - INFO - Successfully deployed agent pay_calculation_agent with ID asst_bHfNP6hyAnW1sB2vKiwW6lrn
+2025-04-12 00:58:30,739 - src.orchestration.azure_agent_definitions - INFO - Deploying agent: analytics_agent
+2025-04-12 00:58:30,739 - src.orchestration.azure_agent_definitions - INFO - Using model: gpt-4o
+2025-04-12 00:58:30,739 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/assistants?api-version=REDACTED'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/json'
+    'Content-Length': '1465'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'c757aa48-175a-11f0-b921-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+A body is sent with the request
+2025-04-12 00:58:31,179 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 04:58:30 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'openai-organization': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 00:58:31,181 - src.orchestration.azure_agent_definitions - INFO - Successfully deployed agent analytics_agent with ID asst_1Mm2wWSuIIWfziIXEiXSHMvi
+2025-04-12 00:58:31,181 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'http://169.254.169.254/metadata/identity/oauth2/token?api-version=REDACTED&resource=REDACTED'
+Request method: 'GET'
+Request headers:
+    'User-Agent': 'azsdk-python-identity/1.21.0 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+No body was attached to the request
+2025-04-12 00:58:33,695 - azure.identity._credentials.chained - INFO - DefaultAzureCredential acquired a token from AzureCliCredential
+2025-04-12 00:58:33,695 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/threads?api-version=REDACTED'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/json'
+    'Content-Length': '2'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'c79b3403-175a-11f0-b780-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+A body is sent with the request
+2025-04-12 00:58:34,195 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 04:58:33 GMT'
+    'Content-Type': 'application/json'
+    'Content-Length': '137'
+    'Connection': 'keep-alive'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'openai-organization': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+2025-04-12 00:58:34,195 - AzureAgentOrchestrator - INFO - Created thread thread_ZX3bRW3qEebMbDRllz3zH9B9 for SDK-based agent call
+2025-04-12 00:58:34,195 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/threads/thread_ZX3bRW3qEebMbDRllz3zH9B9/messages?api-version=REDACTED'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/json'
+    'Content-Length': '94'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'c9670777-175a-11f0-b104-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+A body is sent with the request
+2025-04-12 00:58:34,612 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 04:58:33 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'openai-organization': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 00:58:34,612 - AzureAgentOrchestrator - INFO - Added message to thread: thread_ZX3bRW3qEebMbDRllz3zH9B9
+2025-04-12 00:58:34,615 - AzureAgentOrchestrator - INFO - Running agent asst_wiiXogKXCmGxOk8NHAqrWJ8g on thread thread_ZX3bRW3qEebMbDRllz3zH9B9
+2025-04-12 00:58:34,615 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/threads/thread_ZX3bRW3qEebMbDRllz3zH9B9/runs?api-version=REDACTED'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/json'
+    'Content-Length': '66'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'c9a72770-175a-11f0-b2ab-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+A body is sent with the request
+2025-04-12 00:58:36,079 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 04:58:35 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'openai-organization': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 00:58:36,079 - AzureAgentOrchestrator - INFO - Created run run_W9hZcP0cSTwoFpkyxqKcJz9V with status: RunStatus.QUEUED
+2025-04-12 00:58:36,079 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/threads/thread_ZX3bRW3qEebMbDRllz3zH9B9/runs/run_W9hZcP0cSTwoFpkyxqKcJz9V?api-version=REDACTED'
+Request method: 'GET'
+Request headers:
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'ca867b8a-175a-11f0-bf11-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+No body was attached to the request
+2025-04-12 00:58:36,461 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 04:58:35 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'openai-organization': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 00:58:37,478 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/threads/thread_ZX3bRW3qEebMbDRllz3zH9B9/runs/run_W9hZcP0cSTwoFpkyxqKcJz9V?api-version=REDACTED'
+Request method: 'GET'
+Request headers:
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'cb5bec85-175a-11f0-a3fc-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+No body was attached to the request
+2025-04-12 00:58:37,793 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 04:58:37 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'openai-organization': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 00:58:39,796 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/threads/thread_ZX3bRW3qEebMbDRllz3zH9B9/runs/run_W9hZcP0cSTwoFpkyxqKcJz9V?api-version=REDACTED'
+Request method: 'GET'
+Request headers:
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'ccbdb132-175a-11f0-bbf2-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+No body was attached to the request
+2025-04-12 00:58:40,196 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 04:58:39 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'openai-organization': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 00:58:44,196 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/threads/thread_ZX3bRW3qEebMbDRllz3zH9B9/runs/run_W9hZcP0cSTwoFpkyxqKcJz9V?api-version=REDACTED'
+Request method: 'GET'
+Request headers:
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'cf5d20b7-175a-11f0-88d9-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+No body was attached to the request
+2025-04-12 00:58:44,456 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 04:58:43 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'openai-organization': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 00:58:52,465 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/threads/thread_ZX3bRW3qEebMbDRllz3zH9B9/runs/run_W9hZcP0cSTwoFpkyxqKcJz9V?api-version=REDACTED'
+Request method: 'GET'
+Request headers:
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'd44adf27-175a-11f0-b910-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+No body was attached to the request
+2025-04-12 00:58:52,776 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 04:58:52 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'openai-organization': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 00:59:08,786 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/threads/thread_ZX3bRW3qEebMbDRllz3zH9B9/runs/run_W9hZcP0cSTwoFpkyxqKcJz9V?api-version=REDACTED'
+Request method: 'GET'
+Request headers:
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'de0540b3-175a-11f0-8d5d-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+No body was attached to the request
+2025-04-12 00:59:09,280 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 04:59:08 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'openai-organization': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 00:59:09,280 - AzureAgentOrchestrator - INFO - Run completed successfully: run_W9hZcP0cSTwoFpkyxqKcJz9V
+2025-04-12 00:59:09,280 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/threads/thread_ZX3bRW3qEebMbDRllz3zH9B9/messages?api-version=REDACTED'
+Request method: 'GET'
+Request headers:
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'de509c7d-175a-11f0-a6bb-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+No body was attached to the request
+2025-04-12 00:59:09,625 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 04:59:08 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'openai-organization': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 00:59:09,630 - werkzeug - INFO - 127.0.0.1 - - [12/Apr/2025 00:59:09] "POST /api/chat HTTP/1.1" 200 -
+2025-04-12 00:59:27,516 - __main__ - INFO - Received chat request: role=manager, test_type=default, disable_tools=False
+2025-04-12 00:59:27,518 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/threads?api-version=REDACTED'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/json'
+    'Content-Length': '2'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'e92f7045-175a-11f0-bedb-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+A body is sent with the request
+2025-04-12 00:59:27,810 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 04:59:27 GMT'
+    'Content-Type': 'application/json'
+    'Content-Length': '137'
+    'Connection': 'keep-alive'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'openai-organization': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+2025-04-12 00:59:27,810 - AzureAgentOrchestrator - INFO - Created thread thread_75aeR5umvyViMf4zkdbYGQGY for SDK-based agent call
+2025-04-12 00:59:27,810 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/threads/thread_75aeR5umvyViMf4zkdbYGQGY/messages?api-version=REDACTED'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/json'
+    'Content-Length': '113'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'e95c08a2-175a-11f0-a8ca-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+A body is sent with the request
+2025-04-12 00:59:28,176 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 04:59:27 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'openai-organization': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 00:59:28,191 - AzureAgentOrchestrator - INFO - Added message to thread: thread_75aeR5umvyViMf4zkdbYGQGY
+2025-04-12 00:59:28,192 - AzureAgentOrchestrator - INFO - Running agent asst_bHfNP6hyAnW1sB2vKiwW6lrn on thread thread_75aeR5umvyViMf4zkdbYGQGY
+2025-04-12 00:59:28,193 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/threads/thread_75aeR5umvyViMf4zkdbYGQGY/runs?api-version=REDACTED'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/json'
+    'Content-Length': '66'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'e9967f13-175a-11f0-8683-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+A body is sent with the request
+2025-04-12 00:59:29,115 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 04:59:28 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'openai-organization': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 00:59:29,115 - AzureAgentOrchestrator - INFO - Created run run_EDKSUapQU61KxmkYEnhxwfNc with status: RunStatus.QUEUED
+2025-04-12 00:59:29,115 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/threads/thread_75aeR5umvyViMf4zkdbYGQGY/runs/run_EDKSUapQU61KxmkYEnhxwfNc?api-version=REDACTED'
+Request method: 'GET'
+Request headers:
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'ea2340d7-175a-11f0-b9c4-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+No body was attached to the request
+2025-04-12 00:59:29,410 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 04:59:28 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'openai-organization': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 00:59:30,425 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/threads/thread_75aeR5umvyViMf4zkdbYGQGY/runs/run_EDKSUapQU61KxmkYEnhxwfNc?api-version=REDACTED'
+Request method: 'GET'
+Request headers:
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'eaeb174c-175a-11f0-afd6-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+No body was attached to the request
+2025-04-12 00:59:30,660 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 04:59:30 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'openai-organization': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 00:59:32,677 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/threads/thread_75aeR5umvyViMf4zkdbYGQGY/runs/run_EDKSUapQU61KxmkYEnhxwfNc?api-version=REDACTED'
+Request method: 'GET'
+Request headers:
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'ec42a5af-175a-11f0-8b32-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+No body was attached to the request
+2025-04-12 00:59:32,961 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 04:59:32 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'openai-organization': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 00:59:32,961 - AzureAgentOrchestrator - INFO - Run completed successfully: run_EDKSUapQU61KxmkYEnhxwfNc
+2025-04-12 00:59:32,961 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/threads/thread_75aeR5umvyViMf4zkdbYGQGY/messages?api-version=REDACTED'
+Request method: 'GET'
+Request headers:
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'ec6dfd59-175a-11f0-babf-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+No body was attached to the request
+2025-04-12 00:59:34,017 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 04:59:33 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'openai-organization': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 00:59:34,017 - werkzeug - INFO - 127.0.0.1 - - [12/Apr/2025 00:59:34] "POST /api/chat HTTP/1.1" 200 -
+2025-04-12 00:59:58,751 - __main__ - INFO - Received chat request: role=manager, test_type=default, disable_tools=False
+2025-04-12 00:59:58,751 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/threads?api-version=REDACTED'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/json'
+    'Content-Length': '2'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'fbcd47e3-175a-11f0-87e9-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+A body is sent with the request
+2025-04-12 00:59:59,017 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 04:59:58 GMT'
+    'Content-Type': 'application/json'
+    'Content-Length': '137'
+    'Connection': 'keep-alive'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'openai-organization': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+2025-04-12 00:59:59,017 - AzureAgentOrchestrator - INFO - Created thread thread_Tvhf5dGmPIZgKwiQ4KS09hVv for SDK-based agent call
+2025-04-12 00:59:59,017 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/threads/thread_Tvhf5dGmPIZgKwiQ4KS09hVv/messages?api-version=REDACTED'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/json'
+    'Content-Length': '56'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'fbf5ee89-175a-11f0-9325-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+A body is sent with the request
+2025-04-12 00:59:59,318 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 04:59:58 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'openai-organization': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 00:59:59,328 - AzureAgentOrchestrator - INFO - Added message to thread: thread_Tvhf5dGmPIZgKwiQ4KS09hVv
+2025-04-12 00:59:59,328 - AzureAgentOrchestrator - INFO - Running agent asst_bHfNP6hyAnW1sB2vKiwW6lrn on thread thread_Tvhf5dGmPIZgKwiQ4KS09hVv
+2025-04-12 00:59:59,328 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/threads/thread_Tvhf5dGmPIZgKwiQ4KS09hVv/runs?api-version=REDACTED'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/json'
+    'Content-Length': '66'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'fc255674-175a-11f0-bd8f-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+A body is sent with the request
+2025-04-12 01:00:00,331 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 04:59:59 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'openai-organization': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 01:00:00,334 - AzureAgentOrchestrator - INFO - Created run run_KmFNxMbnURW1z20JR7GrWVIi with status: RunStatus.QUEUED
+2025-04-12 01:00:00,335 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/threads/thread_Tvhf5dGmPIZgKwiQ4KS09hVv/runs/run_KmFNxMbnURW1z20JR7GrWVIi?api-version=REDACTED'
+Request method: 'GET'
+Request headers:
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'fcbef6d9-175a-11f0-8b26-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+No body was attached to the request
+2025-04-12 01:00:01,416 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 05:00:00 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'openai-organization': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 01:00:02,419 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/threads/thread_Tvhf5dGmPIZgKwiQ4KS09hVv/runs/run_KmFNxMbnURW1z20JR7GrWVIi?api-version=REDACTED'
+Request method: 'GET'
+Request headers:
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'fdfce9bf-175a-11f0-9a0e-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+No body was attached to the request
+2025-04-12 01:00:02,792 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 05:00:02 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'openai-organization': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 01:00:04,802 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/threads/thread_Tvhf5dGmPIZgKwiQ4KS09hVv/runs/run_KmFNxMbnURW1z20JR7GrWVIi?api-version=REDACTED'
+Request method: 'GET'
+Request headers:
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'ff689e8b-175a-11f0-bf67-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+No body was attached to the request
+2025-04-12 01:00:05,137 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 05:00:04 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'openai-organization': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 01:00:09,139 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/threads/thread_Tvhf5dGmPIZgKwiQ4KS09hVv/runs/run_KmFNxMbnURW1z20JR7GrWVIi?api-version=REDACTED'
+Request method: 'GET'
+Request headers:
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '01fe425f-175b-11f0-8b74-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+No body was attached to the request
+2025-04-12 01:00:09,437 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 05:00:08 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'openai-organization': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 01:00:17,439 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/threads/thread_Tvhf5dGmPIZgKwiQ4KS09hVv/runs/run_KmFNxMbnURW1z20JR7GrWVIi?api-version=REDACTED'
+Request method: 'GET'
+Request headers:
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '06f0df3f-175b-11f0-95bf-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+No body was attached to the request
+2025-04-12 01:00:17,752 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 05:00:17 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'openai-organization': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 01:00:33,755 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/threads/thread_Tvhf5dGmPIZgKwiQ4KS09hVv/runs/run_KmFNxMbnURW1z20JR7GrWVIi?api-version=REDACTED'
+Request method: 'GET'
+Request headers:
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '10aa8658-175b-11f0-a741-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+No body was attached to the request
+2025-04-12 01:00:33,995 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 05:00:33 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'openai-organization': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 01:00:34,010 - AzureAgentOrchestrator - INFO - Run completed successfully: run_KmFNxMbnURW1z20JR7GrWVIi
+2025-04-12 01:00:34,011 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/threads/thread_Tvhf5dGmPIZgKwiQ4KS09hVv/messages?api-version=REDACTED'
+Request method: 'GET'
+Request headers:
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '10d18d56-175b-11f0-a344-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+No body was attached to the request
+2025-04-12 01:00:34,442 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 05:00:33 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'openai-organization': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 01:00:34,442 - werkzeug - INFO - 127.0.0.1 - - [12/Apr/2025 01:00:34] "POST /api/chat HTTP/1.1" 200 -
+2025-04-12 01:01:23,477 - __main__ - INFO - Received chat request: role=manager, test_type=default, disable_tools=False
+2025-04-12 01:01:23,479 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/threads?api-version=REDACTED'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/json'
+    'Content-Length': '2'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '2e4dcc73-175b-11f0-8105-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+A body is sent with the request
+2025-04-12 01:01:23,774 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 05:01:23 GMT'
+    'Content-Type': 'application/json'
+    'Content-Length': '137'
+    'Connection': 'keep-alive'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'openai-organization': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+2025-04-12 01:01:23,774 - AzureAgentOrchestrator - INFO - Created thread thread_zxUzr20abYNLIilQF8ZPQv0Z for SDK-based agent call
+2025-04-12 01:01:23,774 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/threads/thread_zxUzr20abYNLIilQF8ZPQv0Z/messages?api-version=REDACTED'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/json'
+    'Content-Length': '64'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '2e7acc0c-175b-11f0-ab73-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+A body is sent with the request
+2025-04-12 01:01:24,074 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 05:01:23 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'openai-organization': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 01:01:24,090 - AzureAgentOrchestrator - INFO - Added message to thread: thread_zxUzr20abYNLIilQF8ZPQv0Z
+2025-04-12 01:01:24,090 - AzureAgentOrchestrator - INFO - Running agent asst_bHfNP6hyAnW1sB2vKiwW6lrn on thread thread_zxUzr20abYNLIilQF8ZPQv0Z
+2025-04-12 01:01:24,090 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/threads/thread_zxUzr20abYNLIilQF8ZPQv0Z/runs?api-version=REDACTED'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/json'
+    'Content-Length': '66'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '2eab0ad1-175b-11f0-8b48-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+A body is sent with the request
+2025-04-12 01:01:25,226 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 05:01:24 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'openai-organization': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 01:01:25,231 - AzureAgentOrchestrator - INFO - Created run run_DZsTucU6gE0ZIRiM8rbJjZAj with status: RunStatus.QUEUED
+2025-04-12 01:01:25,232 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/threads/thread_zxUzr20abYNLIilQF8ZPQv0Z/runs/run_DZsTucU6gE0ZIRiM8rbJjZAj?api-version=REDACTED'
+Request method: 'GET'
+Request headers:
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '2f5929fe-175b-11f0-959f-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+No body was attached to the request
+2025-04-12 01:01:25,458 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 05:01:24 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'openai-organization': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 01:01:26,459 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/threads/thread_zxUzr20abYNLIilQF8ZPQv0Z/runs/run_DZsTucU6gE0ZIRiM8rbJjZAj?api-version=REDACTED'
+Request method: 'GET'
+Request headers:
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '30146e12-175b-11f0-b8c9-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+No body was attached to the request
+2025-04-12 01:01:26,760 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 05:01:26 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'openai-organization': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 01:01:28,775 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/threads/thread_zxUzr20abYNLIilQF8ZPQv0Z/runs/run_DZsTucU6gE0ZIRiM8rbJjZAj?api-version=REDACTED'
+Request method: 'GET'
+Request headers:
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '3175a9c6-175b-11f0-b570-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+No body was attached to the request
+2025-04-12 01:01:29,048 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 05:01:28 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'openai-organization': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 01:01:33,060 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/threads/thread_zxUzr20abYNLIilQF8ZPQv0Z/runs/run_DZsTucU6gE0ZIRiM8rbJjZAj?api-version=REDACTED'
+Request method: 'GET'
+Request headers:
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '340389d3-175b-11f0-a53e-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+No body was attached to the request
+2025-04-12 01:01:33,359 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 05:01:32 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'openai-organization': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 01:01:41,378 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/threads/thread_zxUzr20abYNLIilQF8ZPQv0Z/runs/run_DZsTucU6gE0ZIRiM8rbJjZAj?api-version=REDACTED'
+Request method: 'GET'
+Request headers:
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '38f8e262-175b-11f0-ba8b-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+No body was attached to the request
+2025-04-12 01:01:42,189 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 05:01:41 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'openai-organization': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 01:01:42,189 - AzureAgentOrchestrator - INFO - Run completed successfully: run_DZsTucU6gE0ZIRiM8rbJjZAj
+2025-04-12 01:01:42,189 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/threads/thread_zxUzr20abYNLIilQF8ZPQv0Z/messages?api-version=REDACTED'
+Request method: 'GET'
+Request headers:
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '39749876-175b-11f0-b1ed-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+No body was attached to the request
+2025-04-12 01:01:42,484 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 05:01:41 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'openai-organization': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 01:01:42,487 - werkzeug - INFO - 127.0.0.1 - - [12/Apr/2025 01:01:42] "POST /api/chat HTTP/1.1" 200 -
+2025-04-12 01:19:55,865 - __main__ - INFO - Starting API server on port 5000
+2025-04-12 01:19:56,124 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.0.0.248:5000
+2025-04-12 01:19:56,125 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-04-12 01:19:56,134 - werkzeug - INFO -  * Restarting with stat
+2025-04-12 01:20:00,156 - __main__ - INFO - Starting API server on port 5000
+2025-04-12 01:20:00,162 - werkzeug - WARNING -  * Debugger is active!
+2025-04-12 01:20:00,178 - werkzeug - INFO -  * Debugger PIN: 141-708-232
+2025-04-12 01:20:34,951 - __main__ - INFO - Received chat request: role=intelligent, test_type=default, disable_tools=False
+2025-04-12 01:20:34,951 - __main__ - INFO - Initializing Azure Agent Orchestrator
+2025-04-12 01:20:34,951 - AzureAgentOrchestrator - INFO - Using provided configuration dictionary
+2025-04-12 01:20:34,951 - azure.identity._credentials.environment - INFO - No environment configuration found.
+2025-04-12 01:20:35,013 - azure.identity._credentials.managed_identity - INFO - ManagedIdentityCredential will use IMDS
+2025-04-12 01:20:35,016 - AzureAgentOrchestrator - INFO - Successfully initialized AIProjectClient
+2025-04-12 01:20:35,016 - AzureAgentOrchestrator - WARNING - No agent ID found for role: hr
+2025-04-12 01:20:35,016 - AzureAgentOrchestrator - WARNING - No agent ID found for role: manager
+2025-04-12 01:20:35,017 - AzureAgentOrchestrator - WARNING - No agent ID found for role: payroll
+2025-04-12 01:20:35,017 - src.orchestration.azure_agent_definitions - INFO - Initializing Azure Agent Definitions
+2025-04-12 01:20:35,017 - azure.identity._credentials.environment - INFO - No environment configuration found.
+2025-04-12 01:20:35,017 - azure.identity._credentials.managed_identity - INFO - ManagedIdentityCredential will use IMDS
+2025-04-12 01:20:35,017 - src.orchestration.azure_agent_definitions - INFO - Azure Agent Definitions initialized
+2025-04-12 01:20:35,017 - AzureAgentOrchestrator - INFO - Azure Agent Orchestrator initialized
+2025-04-12 01:20:35,017 - AzureAgentOrchestrator - INFO - Using data directory: data
+2025-04-12 01:20:35,017 - AzureAgentOrchestrator - ERROR - Failed to initialize tool executor: 'str' object has no attribute 'get'
+2025-04-12 01:20:36,184 - AzureAgentOrchestrator - INFO - Initialized Azure OpenAI service with model: gpt-4o
+2025-04-12 01:20:36,234 - src.orchestration.azure_agent_orchestrator - INFO - Created routing function using KernelFunction.from_prompt
+2025-04-12 01:20:36,234 - __main__ - INFO - Deploying agents...
+2025-04-12 01:20:36,234 - src.orchestration.azure_agent_definitions - INFO - Initializing Azure Agent Definitions
+2025-04-12 01:20:36,234 - azure.identity._credentials.environment - INFO - No environment configuration found.
+2025-04-12 01:20:36,234 - azure.identity._credentials.managed_identity - INFO - ManagedIdentityCredential will use IMDS
+2025-04-12 01:20:36,234 - src.orchestration.azure_agent_definitions - INFO - Azure Agent Definitions initialized
+2025-04-12 01:20:36,234 - src.orchestration.azure_agent_definitions - INFO - Debug mode enabled with endpoint: https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project
+2025-04-12 01:20:36,234 - src.orchestration.azure_agent_definitions - INFO - Using data directory: data
+2025-04-12 01:20:36,234 - src.orchestration.azure_agent_definitions - INFO - Deploying agents to Azure AI Agent Service
+2025-04-12 01:20:36,234 - src.orchestration.azure_agent_definitions - INFO - Successfully initialized AIProjectClient for file uploads
+2025-04-12 01:20:36,234 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'http://169.254.169.254/metadata/identity/oauth2/token?api-version=REDACTED&resource=REDACTED'
+Request method: 'GET'
+Request headers:
+    'User-Agent': 'azsdk-python-identity/1.21.0 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+No body was attached to the request
+2025-04-12 01:20:39,852 - azure.identity._credentials.chained - INFO - DefaultAzureCredential acquired a token from AzureCliCredential
+2025-04-12 01:20:39,852 - src.orchestration.azure_agent_definitions - INFO - Found 3 Excel/CSV files: Emp_Wage_Hours_Sep24_Oct24_Nov24_Dec24_Jan25_Feb25.xlsx, UK EmpID_Legacy_Country_Payments_Hourly Rate.xlsx, UK Standby_Callout_Overtime_Shift_Payment.xlsx
+2025-04-12 01:20:39,852 - src.orchestration.azure_agent_definitions - INFO - Uploading file: data\Emp_Wage_Hours_Sep24_Oct24_Nov24_Dec24_Jan25_Feb25.xlsx
+2025-04-12 01:20:41,369 - azure.identity._internal.decorators - INFO - AzureCliCredential.get_token_info succeeded
+2025-04-12 01:20:41,369 - azure.identity._credentials.default - INFO - DefaultAzureCredential acquired a token from AzureCliCredential
+2025-04-12 01:20:41,369 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/files?api-version=REDACTED'
+Request method: 'POST'
+Request headers:
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'df916a19-175d-11f0-9892-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+A body is sent with the request
+2025-04-12 01:20:44,038 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 05:20:43 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Access-Control-Allow-Origin': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 01:20:44,072 - src.orchestration.azure_agent_definitions - INFO - Successfully uploaded Emp_Wage_Hours_Sep24_Oct24_Nov24_Dec24_Jan25_Feb25.xlsx with ID: assistant-QKLc1acnTNrw1PzyTmWJGq
+2025-04-12 01:20:44,072 - src.orchestration.azure_agent_definitions - INFO - Uploading file: data\UK EmpID_Legacy_Country_Payments_Hourly Rate.xlsx
+2025-04-12 01:20:44,086 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/files?api-version=REDACTED'
+Request method: 'POST'
+Request headers:
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'e21449bb-175d-11f0-b351-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+A body is sent with the request
+2025-04-12 01:20:45,745 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 05:20:45 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Access-Control-Allow-Origin': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 01:20:45,745 - src.orchestration.azure_agent_definitions - INFO - Successfully uploaded UK EmpID_Legacy_Country_Payments_Hourly Rate.xlsx with ID: assistant-HHi1v12V3fvdhUjUajkf6R
+2025-04-12 01:20:45,745 - src.orchestration.azure_agent_definitions - INFO - Uploading file: data\UK Standby_Callout_Overtime_Shift_Payment.xlsx
+2025-04-12 01:20:45,770 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/files?api-version=REDACTED'
+Request method: 'POST'
+Request headers:
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'e3154745-175d-11f0-9f7c-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+A body is sent with the request
+2025-04-12 01:20:48,356 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 05:20:47 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Access-Control-Allow-Origin': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 01:20:48,356 - src.orchestration.azure_agent_definitions - INFO - Successfully uploaded UK Standby_Callout_Overtime_Shift_Payment.xlsx with ID: assistant-UA5K6ipodkvnzuEHSqC6Dr
+2025-04-12 01:20:48,356 - src.orchestration.azure_agent_definitions - INFO - Successfully uploaded 3 Excel files for Code Interpreter
+2025-04-12 01:20:48,356 - src.orchestration.azure_agent_definitions - INFO - Deploying agent: policy_extraction_agent
+2025-04-12 01:20:48,356 - src.orchestration.azure_agent_definitions - INFO - Using model: gpt-4o
+2025-04-12 01:20:48,356 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/assistants?api-version=REDACTED'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/json'
+    'Content-Length': '1544'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'e49fd8f6-175d-11f0-99f1-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+A body is sent with the request
+2025-04-12 01:20:48,823 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 05:20:48 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'openai-organization': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 01:20:48,823 - src.orchestration.azure_agent_definitions - INFO - Successfully deployed agent policy_extraction_agent with ID asst_f2274Wu3ds7vuGAt1kd3cJbe
+2025-04-12 01:20:48,827 - src.orchestration.azure_agent_definitions - INFO - Deploying agent: pay_calculation_agent
+2025-04-12 01:20:48,828 - src.orchestration.azure_agent_definitions - INFO - Using model: gpt-4o
+2025-04-12 01:20:48,830 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/assistants?api-version=REDACTED'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/json'
+    'Content-Length': '1518'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'e4e82d33-175d-11f0-af81-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+A body is sent with the request
+2025-04-12 01:20:49,338 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 05:20:48 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'openai-organization': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 01:20:49,342 - src.orchestration.azure_agent_definitions - INFO - Successfully deployed agent pay_calculation_agent with ID asst_3NKIjwLYvNGmXoEDsjeBLfXw
+2025-04-12 01:20:49,342 - src.orchestration.azure_agent_definitions - INFO - Deploying agent: analytics_agent
+2025-04-12 01:20:49,342 - src.orchestration.azure_agent_definitions - INFO - Using model: gpt-4o
+2025-04-12 01:20:49,342 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/assistants?api-version=REDACTED'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/json'
+    'Content-Length': '1465'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'e5364252-175d-11f0-8acc-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+A body is sent with the request
+2025-04-12 01:20:49,772 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 05:20:49 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'openai-organization': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 01:20:49,785 - src.orchestration.azure_agent_definitions - INFO - Successfully deployed agent analytics_agent with ID asst_zrQ5qY0noPTT2Lff77U8wkAZ
+2025-04-12 01:20:49,791 - __main__ - INFO - Using intelligent routing for the request
+2025-04-12 01:20:49,791 - __main__ - ERROR - Error processing chat request: AzureAgentOrchestrator.route_request() got an unexpected keyword argument 'disable_tools'
+Traceback (most recent call last):
+  File "C:\Users\jamesbas\Code\DXCSupPay2\app.py", line 112, in chat
+    _orchestrator.route_request(message, disable_tools=disable_tools)
+TypeError: AzureAgentOrchestrator.route_request() got an unexpected keyword argument 'disable_tools'
+2025-04-12 01:20:49,804 - werkzeug - INFO - 127.0.0.1 - - [12/Apr/2025 01:20:49] "[35m[1mPOST /api/chat HTTP/1.1[0m" 500 -
+2025-04-12 01:31:18,895 - __main__ - INFO - Starting API server on port 5000
+2025-04-12 01:31:18,933 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.0.0.248:5000
+2025-04-12 01:31:18,933 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-04-12 01:31:18,937 - werkzeug - INFO -  * Restarting with stat
+2025-04-12 01:31:22,981 - __main__ - INFO - Starting API server on port 5000
+2025-04-12 01:31:22,999 - werkzeug - WARNING -  * Debugger is active!
+2025-04-12 01:31:23,005 - werkzeug - INFO -  * Debugger PIN: 141-708-232
+2025-04-12 01:42:26,702 - __main__ - INFO - Starting API server on port 5000
+2025-04-12 01:42:26,980 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.0.0.248:5000
+2025-04-12 01:42:26,980 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-04-12 01:42:26,995 - werkzeug - INFO -  * Restarting with stat
+2025-04-12 01:42:30,647 - __main__ - INFO - Starting API server on port 5000
+2025-04-12 01:42:30,664 - werkzeug - WARNING -  * Debugger is active!
+2025-04-12 01:42:30,671 - werkzeug - INFO -  * Debugger PIN: 141-708-232
+2025-04-12 01:44:06,797 - __main__ - INFO - Received chat request: role=intelligent, test_type=default, disable_tools=False
+2025-04-12 01:44:06,797 - __main__ - INFO - Initializing Azure Agent Orchestrator
+2025-04-12 01:44:06,797 - AzureAgentOrchestrator - INFO - Using provided configuration dictionary
+2025-04-12 01:44:06,797 - azure.identity._credentials.environment - INFO - No environment configuration found.
+2025-04-12 01:44:06,931 - azure.identity._credentials.managed_identity - INFO - ManagedIdentityCredential will use IMDS
+2025-04-12 01:44:06,931 - AzureAgentOrchestrator - INFO - Successfully initialized AIProjectClient
+2025-04-12 01:44:06,931 - AzureAgentOrchestrator - WARNING - No agent ID found for role: hr
+2025-04-12 01:44:06,931 - AzureAgentOrchestrator - WARNING - No agent ID found for role: manager
+2025-04-12 01:44:06,931 - AzureAgentOrchestrator - WARNING - No agent ID found for role: payroll
+2025-04-12 01:44:06,931 - src.orchestration.azure_agent_definitions - INFO - Initializing Azure Agent Definitions
+2025-04-12 01:44:06,931 - azure.identity._credentials.environment - INFO - No environment configuration found.
+2025-04-12 01:44:06,931 - azure.identity._credentials.managed_identity - INFO - ManagedIdentityCredential will use IMDS
+2025-04-12 01:44:06,931 - src.orchestration.azure_agent_definitions - INFO - Azure Agent Definitions initialized
+2025-04-12 01:44:06,931 - AzureAgentOrchestrator - INFO - Azure Agent Orchestrator initialized
+2025-04-12 01:44:06,931 - AzureAgentOrchestrator - INFO - Using data directory: data
+2025-04-12 01:44:06,931 - AzureAgentOrchestrator - ERROR - Failed to initialize tool executor: 'str' object has no attribute 'get'
+2025-04-12 01:44:08,133 - AzureAgentOrchestrator - INFO - Initialized Azure OpenAI service with model: gpt-4o
+2025-04-12 01:44:08,197 - src.orchestration.azure_agent_orchestrator - INFO - Created routing function using KernelFunction.from_prompt
+2025-04-12 01:44:08,197 - __main__ - INFO - Deploying agents...
+2025-04-12 01:44:08,197 - src.orchestration.azure_agent_definitions - INFO - Initializing Azure Agent Definitions
+2025-04-12 01:44:08,197 - azure.identity._credentials.environment - INFO - No environment configuration found.
+2025-04-12 01:44:08,197 - azure.identity._credentials.managed_identity - INFO - ManagedIdentityCredential will use IMDS
+2025-04-12 01:44:08,197 - src.orchestration.azure_agent_definitions - INFO - Azure Agent Definitions initialized
+2025-04-12 01:44:08,197 - src.orchestration.azure_agent_definitions - INFO - Debug mode enabled with endpoint: https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project
+2025-04-12 01:44:08,197 - src.orchestration.azure_agent_definitions - INFO - Using data directory: data
+2025-04-12 01:44:08,197 - src.orchestration.azure_agent_definitions - INFO - Deploying agents to Azure AI Agent Service
+2025-04-12 01:44:08,197 - src.orchestration.azure_agent_definitions - INFO - Successfully initialized AIProjectClient for file uploads
+2025-04-12 01:44:08,197 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'http://169.254.169.254/metadata/identity/oauth2/token?api-version=REDACTED&resource=REDACTED'
+Request method: 'GET'
+Request headers:
+    'User-Agent': 'azsdk-python-identity/1.21.0 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+No body was attached to the request
+2025-04-12 01:44:11,481 - azure.identity._credentials.chained - INFO - DefaultAzureCredential acquired a token from AzureCliCredential
+2025-04-12 01:44:11,481 - src.orchestration.azure_agent_definitions - INFO - Found 3 Excel/CSV files: Emp_Wage_Hours_Sep24_Oct24_Nov24_Dec24_Jan25_Feb25.xlsx, UK EmpID_Legacy_Country_Payments_Hourly Rate.xlsx, UK Standby_Callout_Overtime_Shift_Payment.xlsx
+2025-04-12 01:44:11,481 - src.orchestration.azure_agent_definitions - INFO - Uploading file: data\Emp_Wage_Hours_Sep24_Oct24_Nov24_Dec24_Jan25_Feb25.xlsx
+2025-04-12 01:44:13,165 - azure.identity._internal.decorators - INFO - AzureCliCredential.get_token_info succeeded
+2025-04-12 01:44:13,165 - azure.identity._credentials.default - INFO - DefaultAzureCredential acquired a token from AzureCliCredential
+2025-04-12 01:44:13,165 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/files?api-version=REDACTED'
+Request method: 'POST'
+Request headers:
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '28f862f5-1761-11f0-858e-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+A body is sent with the request
+2025-04-12 01:44:15,349 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 05:44:14 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Access-Control-Allow-Origin': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 01:44:15,366 - src.orchestration.azure_agent_definitions - INFO - Successfully uploaded Emp_Wage_Hours_Sep24_Oct24_Nov24_Dec24_Jan25_Feb25.xlsx with ID: assistant-Ekdd5BvhjpYqidXJfjvF8r
+2025-04-12 01:44:15,366 - src.orchestration.azure_agent_definitions - INFO - Uploading file: data\UK EmpID_Legacy_Country_Payments_Hourly Rate.xlsx
+2025-04-12 01:44:15,382 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/files?api-version=REDACTED'
+Request method: 'POST'
+Request headers:
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '2b470165-1761-11f0-9e42-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+A body is sent with the request
+2025-04-12 01:44:17,216 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 05:44:16 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Access-Control-Allow-Origin': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 01:44:17,216 - src.orchestration.azure_agent_definitions - INFO - Successfully uploaded UK EmpID_Legacy_Country_Payments_Hourly Rate.xlsx with ID: assistant-VDWGuWU1R4zWwN6cfs6QSN
+2025-04-12 01:44:17,216 - src.orchestration.azure_agent_definitions - INFO - Uploading file: data\UK Standby_Callout_Overtime_Shift_Payment.xlsx
+2025-04-12 01:44:17,238 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/files?api-version=REDACTED'
+Request method: 'POST'
+Request headers:
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '2c622bfb-1761-11f0-9053-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+A body is sent with the request
+2025-04-12 01:44:26,118 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 05:44:25 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Access-Control-Allow-Origin': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 01:44:26,118 - src.orchestration.azure_agent_definitions - INFO - Successfully uploaded UK Standby_Callout_Overtime_Shift_Payment.xlsx with ID: assistant-Fw1GjrDWAsrVZF4fVv26qN
+2025-04-12 01:44:26,118 - src.orchestration.azure_agent_definitions - INFO - Successfully uploaded 3 Excel files for Code Interpreter
+2025-04-12 01:44:26,118 - src.orchestration.azure_agent_definitions - INFO - Deploying agent: policy_extraction_agent
+2025-04-12 01:44:26,118 - src.orchestration.azure_agent_definitions - INFO - Using model: gpt-4o
+2025-04-12 01:44:26,118 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/assistants?api-version=REDACTED'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/json'
+    'Content-Length': '1544'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '31ad3f10-1761-11f0-9536-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+A body is sent with the request
+2025-04-12 01:44:26,787 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 05:44:26 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'openai-organization': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 01:44:26,787 - src.orchestration.azure_agent_definitions - INFO - Successfully deployed agent policy_extraction_agent with ID asst_56MJrIrlXjnf6Y5LnfoI4XAp
+2025-04-12 01:44:26,787 - src.orchestration.azure_agent_definitions - INFO - Deploying agent: pay_calculation_agent
+2025-04-12 01:44:26,787 - src.orchestration.azure_agent_definitions - INFO - Using model: gpt-4o
+2025-04-12 01:44:26,787 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/assistants?api-version=REDACTED'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/json'
+    'Content-Length': '1518'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '32134ffc-1761-11f0-90c1-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+A body is sent with the request
+2025-04-12 01:44:27,601 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 05:44:26 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'openai-organization': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 01:44:27,602 - src.orchestration.azure_agent_definitions - INFO - Successfully deployed agent pay_calculation_agent with ID asst_WDL8SaNAXHyePjpM571k21MJ
+2025-04-12 01:44:27,602 - src.orchestration.azure_agent_definitions - INFO - Deploying agent: analytics_agent
+2025-04-12 01:44:27,602 - src.orchestration.azure_agent_definitions - INFO - Using model: gpt-4o
+2025-04-12 01:44:27,602 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/assistants?api-version=REDACTED'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/json'
+    'Content-Length': '1465'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '328fb1af-1761-11f0-b041-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+A body is sent with the request
+2025-04-12 01:44:31,220 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 05:44:30 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'openai-organization': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 01:44:31,220 - src.orchestration.azure_agent_definitions - INFO - Successfully deployed agent analytics_agent with ID asst_DA4WaliTxJgoUmJolKqY5miH
+2025-04-12 01:44:31,220 - __main__ - INFO - Using intelligent routing for the request
+2025-04-12 01:44:31,220 - __main__ - ERROR - Error processing chat request: AzureAgentOrchestrator.route_request() got an unexpected keyword argument 'disable_tools'
+Traceback (most recent call last):
+  File "C:\Users\jamesbas\Code\DXCSupPay2\app.py", line 112, in chat
+    _orchestrator.route_request(message, disable_tools=disable_tools)
+TypeError: AzureAgentOrchestrator.route_request() got an unexpected keyword argument 'disable_tools'
+2025-04-12 01:44:31,220 - werkzeug - INFO - 127.0.0.1 - - [12/Apr/2025 01:44:31] "[35m[1mPOST /api/chat HTTP/1.1[0m" 500 -
+2025-04-12 01:44:31,237 - __main__ - INFO - Received chat request: role=intelligent, test_type=default, disable_tools=False
+2025-04-12 01:44:31,237 - __main__ - INFO - Using intelligent routing for the request
+2025-04-12 01:44:31,237 - __main__ - ERROR - Error processing chat request: AzureAgentOrchestrator.route_request() got an unexpected keyword argument 'disable_tools'
+Traceback (most recent call last):
+  File "C:\Users\jamesbas\Code\DXCSupPay2\app.py", line 112, in chat
+    _orchestrator.route_request(message, disable_tools=disable_tools)
+TypeError: AzureAgentOrchestrator.route_request() got an unexpected keyword argument 'disable_tools'
+2025-04-12 01:44:31,252 - werkzeug - INFO - 127.0.0.1 - - [12/Apr/2025 01:44:31] "[35m[1mPOST /api/chat HTTP/1.1[0m" 500 -
+2025-04-12 01:45:51,045 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jamesbas\\Code\\DXCSupPay2\\app.py', reloading
+2025-04-12 01:45:51,381 - werkzeug - INFO -  * Restarting with stat
+2025-04-12 01:45:55,720 - __main__ - INFO - Starting API server on port 5000
+2025-04-12 01:45:55,739 - werkzeug - WARNING -  * Debugger is active!
+2025-04-12 01:45:55,746 - werkzeug - INFO -  * Debugger PIN: 141-708-232
+2025-04-12 01:46:03,647 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jamesbas\\Code\\DXCSupPay2\\app.py', reloading
+2025-04-12 01:46:03,948 - werkzeug - INFO -  * Restarting with stat
+2025-04-12 01:46:08,052 - __main__ - INFO - Starting API server on port 5000
+2025-04-12 01:46:08,072 - werkzeug - WARNING -  * Debugger is active!
+2025-04-12 01:46:08,077 - werkzeug - INFO -  * Debugger PIN: 141-708-232
+2025-04-12 01:46:21,444 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jamesbas\\Code\\DXCSupPay2\\app.py', reloading
+2025-04-12 01:46:21,744 - werkzeug - INFO -  * Restarting with stat
+2025-04-12 01:46:25,795 - __main__ - INFO - Starting API server on port 5000
+2025-04-12 01:46:25,821 - werkzeug - WARNING -  * Debugger is active!
+2025-04-12 01:46:25,827 - werkzeug - INFO -  * Debugger PIN: 141-708-232
+2025-04-12 01:47:05,952 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jamesbas\\Code\\DXCSupPay2\\app.py', reloading
+2025-04-12 01:47:06,283 - werkzeug - INFO -  * Restarting with stat
+2025-04-12 01:47:10,761 - __main__ - INFO - Starting API server on port 5000
+2025-04-12 01:47:10,784 - werkzeug - WARNING -  * Debugger is active!
+2025-04-12 01:47:10,787 - werkzeug - INFO -  * Debugger PIN: 141-708-232
+2025-04-12 01:47:16,566 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jamesbas\\Code\\DXCSupPay2\\app.py', reloading
+2025-04-12 01:47:16,858 - werkzeug - INFO -  * Restarting with stat
+2025-04-12 01:47:20,920 - __main__ - INFO - Starting API server on port 5000
+2025-04-12 01:47:20,943 - werkzeug - WARNING -  * Debugger is active!
+2025-04-12 01:47:20,948 - werkzeug - INFO -  * Debugger PIN: 141-708-232
+2025-04-12 01:49:26,030 - __main__ - INFO - Starting API server on port 5000
+2025-04-12 01:49:26,708 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.0.0.248:5000
+2025-04-12 01:49:26,708 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-04-12 01:49:26,724 - werkzeug - INFO -  * Restarting with stat
+2025-04-12 01:49:54,608 - __main__ - INFO - Starting API server on port 5000
+2025-04-12 01:49:54,623 - werkzeug - WARNING -  * Debugger is active!
+2025-04-12 01:49:54,637 - werkzeug - INFO -  * Debugger PIN: 141-708-232
+2025-04-12 01:50:49,422 - werkzeug - INFO - 127.0.0.1 - - [12/Apr/2025 01:50:49] "GET /api/health HTTP/1.1" 200 -
+2025-04-12 01:50:49,455 - __main__ - INFO - Received raw data: {"message": "Calculate the appropriate supplemental pay for overtime work for employee 10000518", "role": "intelligent", "testType": "default", "disableTools": false, "files": []}
+2025-04-12 01:50:49,455 - __main__ - INFO - Processed parameters: role=intelligent, test_type=default, disable_tools=False
+2025-04-12 01:50:49,455 - __main__ - INFO - Initializing Azure Agent Orchestrator
+2025-04-12 01:50:49,455 - AzureAgentOrchestrator - INFO - Using provided configuration dictionary
+2025-04-12 01:50:49,455 - azure.identity._credentials.environment - INFO - No environment configuration found.
+2025-04-12 01:50:49,539 - azure.identity._credentials.managed_identity - INFO - ManagedIdentityCredential will use IMDS
+2025-04-12 01:50:49,539 - AzureAgentOrchestrator - INFO - Successfully initialized AIProjectClient
+2025-04-12 01:50:49,539 - AzureAgentOrchestrator - WARNING - No agent ID found for role: hr
+2025-04-12 01:50:49,539 - AzureAgentOrchestrator - WARNING - No agent ID found for role: manager
+2025-04-12 01:50:49,539 - AzureAgentOrchestrator - WARNING - No agent ID found for role: payroll
+2025-04-12 01:50:49,539 - src.orchestration.azure_agent_definitions - INFO - Initializing Azure Agent Definitions
+2025-04-12 01:50:49,539 - azure.identity._credentials.environment - INFO - No environment configuration found.
+2025-04-12 01:50:49,539 - azure.identity._credentials.managed_identity - INFO - ManagedIdentityCredential will use IMDS
+2025-04-12 01:50:49,539 - src.orchestration.azure_agent_definitions - INFO - Azure Agent Definitions initialized
+2025-04-12 01:50:49,539 - AzureAgentOrchestrator - INFO - Azure Agent Orchestrator initialized
+2025-04-12 01:50:49,539 - AzureAgentOrchestrator - INFO - Using data directory: data
+2025-04-12 01:50:49,539 - AzureAgentOrchestrator - ERROR - Failed to initialize tool executor: 'str' object has no attribute 'get'
+2025-04-12 01:50:51,089 - AzureAgentOrchestrator - INFO - Initialized Azure OpenAI service with model: gpt-4o
+2025-04-12 01:50:51,190 - src.orchestration.azure_agent_orchestrator - INFO - Created routing function using KernelFunction.from_prompt
+2025-04-12 01:50:51,190 - __main__ - INFO - Deploying agents...
+2025-04-12 01:50:51,190 - src.orchestration.azure_agent_definitions - INFO - Initializing Azure Agent Definitions
+2025-04-12 01:50:51,190 - azure.identity._credentials.environment - INFO - No environment configuration found.
+2025-04-12 01:50:51,196 - azure.identity._credentials.managed_identity - INFO - ManagedIdentityCredential will use IMDS
+2025-04-12 01:50:51,196 - src.orchestration.azure_agent_definitions - INFO - Azure Agent Definitions initialized
+2025-04-12 01:50:51,196 - src.orchestration.azure_agent_definitions - INFO - Debug mode enabled with endpoint: https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project
+2025-04-12 01:50:51,196 - src.orchestration.azure_agent_definitions - INFO - Using data directory: data
+2025-04-12 01:50:51,196 - src.orchestration.azure_agent_definitions - INFO - Deploying agents to Azure AI Agent Service
+2025-04-12 01:50:51,199 - src.orchestration.azure_agent_definitions - INFO - Successfully initialized AIProjectClient for file uploads
+2025-04-12 01:50:51,199 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'http://169.254.169.254/metadata/identity/oauth2/token?api-version=REDACTED&resource=REDACTED'
+Request method: 'GET'
+Request headers:
+    'User-Agent': 'azsdk-python-identity/1.21.0 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+No body was attached to the request
+2025-04-12 01:50:54,595 - azure.identity._credentials.chained - INFO - DefaultAzureCredential acquired a token from AzureCliCredential
+2025-04-12 01:50:54,595 - src.orchestration.azure_agent_definitions - INFO - Found 3 Excel/CSV files: Emp_Wage_Hours_Sep24_Oct24_Nov24_Dec24_Jan25_Feb25.xlsx, UK EmpID_Legacy_Country_Payments_Hourly Rate.xlsx, UK Standby_Callout_Overtime_Shift_Payment.xlsx
+2025-04-12 01:50:54,595 - src.orchestration.azure_agent_definitions - INFO - Uploading file: data\Emp_Wage_Hours_Sep24_Oct24_Nov24_Dec24_Jan25_Feb25.xlsx
+2025-04-12 01:50:56,077 - azure.identity._internal.decorators - INFO - AzureCliCredential.get_token_info succeeded
+2025-04-12 01:50:56,077 - azure.identity._credentials.default - INFO - DefaultAzureCredential acquired a token from AzureCliCredential
+2025-04-12 01:50:56,077 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/files?api-version=REDACTED'
+Request method: 'POST'
+Request headers:
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '1940afee-1762-11f0-ab2f-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+A body is sent with the request
+2025-04-12 01:50:59,008 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 05:50:58 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Access-Control-Allow-Origin': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 01:50:59,075 - src.orchestration.azure_agent_definitions - INFO - Successfully uploaded Emp_Wage_Hours_Sep24_Oct24_Nov24_Dec24_Jan25_Feb25.xlsx with ID: assistant-2A9pnihwTE6ueNJmJ7ePaK
+2025-04-12 01:50:59,075 - src.orchestration.azure_agent_definitions - INFO - Uploading file: data\UK EmpID_Legacy_Country_Payments_Hourly Rate.xlsx
+2025-04-12 01:50:59,124 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/files?api-version=REDACTED'
+Request method: 'POST'
+Request headers:
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '1bed2bec-1762-11f0-be17-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+A body is sent with the request
+2025-04-12 01:51:08,983 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 05:51:08 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Access-Control-Allow-Origin': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 01:51:08,984 - src.orchestration.azure_agent_definitions - INFO - Successfully uploaded UK EmpID_Legacy_Country_Payments_Hourly Rate.xlsx with ID: assistant-6J9J9cbmwS7YyQjMkrcbrP
+2025-04-12 01:51:08,985 - src.orchestration.azure_agent_definitions - INFO - Uploading file: data\UK Standby_Callout_Overtime_Shift_Payment.xlsx
+2025-04-12 01:51:09,061 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/files?api-version=REDACTED'
+Request method: 'POST'
+Request headers:
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '21d95f58-1762-11f0-b91e-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+A body is sent with the request
+2025-04-12 01:51:18,013 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 05:51:17 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Access-Control-Allow-Origin': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 01:51:18,013 - src.orchestration.azure_agent_definitions - INFO - Successfully uploaded UK Standby_Callout_Overtime_Shift_Payment.xlsx with ID: assistant-Ya2MZkt3WmQ4ZERLPEUiZy
+2025-04-12 01:51:18,013 - src.orchestration.azure_agent_definitions - INFO - Successfully uploaded 3 Excel files for Code Interpreter
+2025-04-12 01:51:18,013 - src.orchestration.azure_agent_definitions - INFO - Deploying agent: policy_extraction_agent
+2025-04-12 01:51:18,013 - src.orchestration.azure_agent_definitions - INFO - Using model: gpt-4o
+2025-04-12 01:51:18,013 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/assistants?api-version=REDACTED'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/json'
+    'Content-Length': '1544'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '272f5a77-1762-11f0-8a7e-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+A body is sent with the request
+2025-04-12 01:51:18,455 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 05:51:17 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'openai-organization': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 01:51:18,457 - src.orchestration.azure_agent_definitions - INFO - Successfully deployed agent policy_extraction_agent with ID asst_dHiMlXBGYert5ymwDh1GdrYy
+2025-04-12 01:51:18,457 - src.orchestration.azure_agent_definitions - INFO - Deploying agent: pay_calculation_agent
+2025-04-12 01:51:18,457 - src.orchestration.azure_agent_definitions - INFO - Using model: gpt-4o
+2025-04-12 01:51:18,457 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/assistants?api-version=REDACTED'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/json'
+    'Content-Length': '1518'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '27730c33-1762-11f0-a512-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+A body is sent with the request
+2025-04-12 01:51:18,930 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 05:51:18 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'openai-organization': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 01:51:18,931 - src.orchestration.azure_agent_definitions - INFO - Successfully deployed agent pay_calculation_agent with ID asst_Y1jq2vDKgcSlEC240AHyMRXT
+2025-04-12 01:51:18,931 - src.orchestration.azure_agent_definitions - INFO - Deploying agent: analytics_agent
+2025-04-12 01:51:18,931 - src.orchestration.azure_agent_definitions - INFO - Using model: gpt-4o
+2025-04-12 01:51:18,931 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/assistants?api-version=REDACTED'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/json'
+    'Content-Length': '1465'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '27bb7712-1762-11f0-9075-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+A body is sent with the request
+2025-04-12 01:51:19,420 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 05:51:18 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'openai-organization': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 01:51:19,420 - src.orchestration.azure_agent_definitions - INFO - Successfully deployed agent analytics_agent with ID asst_g5HuMZIzLIQjRWugTtQHAJBN
+2025-04-12 01:51:19,420 - __main__ - INFO - Deployed agent IDs: {'policy_extraction_agent': 'asst_dHiMlXBGYert5ymwDh1GdrYy', 'pay_calculation_agent': 'asst_Y1jq2vDKgcSlEC240AHyMRXT', 'analytics_agent': 'asst_g5HuMZIzLIQjRWugTtQHAJBN'}
+2025-04-12 01:51:19,420 - __main__ - INFO - Using intelligent routing for the request
+2025-04-12 01:51:19,420 - AzureAgentOrchestrator - INFO - Routing request: Calculate the appropriate supplemental pay for overtime work for employee 10000518
+2025-04-12 01:51:19,420 - semantic_kernel.functions.kernel_function - INFO - Function orchestrator-route_query invoking.
+2025-04-12 01:51:21,807 - httpx - INFO - HTTP Request: POST https://ai-jamesbasdxcdemohub813802416327.openai.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2024-10-21 "HTTP/1.1 200 OK"
+2025-04-12 01:51:21,813 - semantic_kernel.connectors.ai.open_ai.services.open_ai_handler - INFO - OpenAI usage: CompletionUsage(completion_tokens=94, prompt_tokens=270, total_tokens=364, completion_tokens_details=CompletionTokensDetails(accepted_prediction_tokens=0, audio_tokens=0, reasoning_tokens=0, rejected_prediction_tokens=0), prompt_tokens_details=PromptTokensDetails(audio_tokens=0, cached_tokens=0))
+2025-04-12 01:51:21,814 - semantic_kernel.functions.kernel_function - INFO - Function orchestrator-route_query succeeded.
+2025-04-12 01:51:21,815 - semantic_kernel.functions.kernel_function - INFO - Function completed. Duration: 2.387308s
+2025-04-12 01:51:21,815 - src.orchestration.azure_agent_orchestrator - INFO - Routing analysis completed in 2.39 seconds
+2025-04-12 01:51:21,815 - src.orchestration.azure_agent_orchestrator - INFO - Query: 'Calculate the appropriate supplemental pay for ove...' -> Primary: pay_calculation_agent, Confidence: 1.0, Secondary: ['policy_extraction_agent']
+2025-04-12 01:51:21,815 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'http://169.254.169.254/metadata/identity/oauth2/token?api-version=REDACTED&resource=REDACTED'
+Request method: 'GET'
+Request headers:
+    'User-Agent': 'azsdk-python-identity/1.21.0 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+No body was attached to the request
+2025-04-12 01:51:24,181 - azure.identity._credentials.chained - INFO - DefaultAzureCredential acquired a token from AzureCliCredential
+2025-04-12 01:51:24,181 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/threads?api-version=REDACTED'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/json'
+    'Content-Length': '2'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '29737a9f-1762-11f0-ab17-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+A body is sent with the request
+2025-04-12 01:51:25,282 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 05:51:24 GMT'
+    'Content-Type': 'application/json'
+    'Content-Length': '137'
+    'Connection': 'keep-alive'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'openai-organization': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+2025-04-12 01:51:25,282 - AzureAgentOrchestrator - INFO - Created thread: thread_YcrJQ7Csn6bCfH4cfg7qjyWh
+2025-04-12 01:51:25,282 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/threads/thread_YcrJQ7Csn6bCfH4cfg7qjyWh/messages?api-version=REDACTED'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/json'
+    'Content-Length': '488'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '2b84977b-1762-11f0-b5b8-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+A body is sent with the request
+2025-04-12 01:51:25,602 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 05:51:24 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'openai-organization': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 01:51:25,602 - AzureAgentOrchestrator - INFO - Added message to thread: thread_YcrJQ7Csn6bCfH4cfg7qjyWh
+2025-04-12 01:51:25,602 - AzureAgentOrchestrator - INFO - Running agent asst_Y1jq2vDKgcSlEC240AHyMRXT on thread thread_YcrJQ7Csn6bCfH4cfg7qjyWh
+2025-04-12 01:51:25,602 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/threads/thread_YcrJQ7Csn6bCfH4cfg7qjyWh/runs?api-version=REDACTED'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/json'
+    'Content-Length': '66'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '2bb55fee-1762-11f0-abe6-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+A body is sent with the request
+2025-04-12 01:51:26,879 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 05:51:26 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'openai-organization': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 01:51:26,882 - AzureAgentOrchestrator - INFO - Created run run_EUcvek6rcJXIuODmN8Ip1jgF with status: RunStatus.QUEUED
+2025-04-12 01:51:26,882 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/threads/thread_YcrJQ7Csn6bCfH4cfg7qjyWh/runs/run_EUcvek6rcJXIuODmN8Ip1jgF?api-version=REDACTED'
+Request method: 'GET'
+Request headers:
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '2c78a533-1762-11f0-adbd-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+No body was attached to the request
+2025-04-12 01:51:29,659 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 05:51:29 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'openai-organization': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 01:51:30,666 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/threads/thread_YcrJQ7Csn6bCfH4cfg7qjyWh/runs/run_EUcvek6rcJXIuODmN8Ip1jgF?api-version=REDACTED'
+Request method: 'GET'
+Request headers:
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '2eb9e195-1762-11f0-a0d9-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+No body was attached to the request
+2025-04-12 01:51:31,001 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 05:51:30 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'openai-organization': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 01:51:31,001 - AzureAgentOrchestrator - INFO - Run completed successfully: run_EUcvek6rcJXIuODmN8Ip1jgF
+2025-04-12 01:51:31,001 - azure.core.pipeline.policies.http_logging_policy - INFO - Request URL: 'https://eastus2.api.azureml.ms/agents/v1.0/subscriptions/2678d36e-00a6-455f-8f47-d524ef09e674/resourceGroups/rg-jamesbas-2315_ai/providers/Microsoft.MachineLearningServices/workspaces/jamesbas_dxc_supp_pay_project/threads/thread_YcrJQ7Csn6bCfH4cfg7qjyWh/messages?api-version=REDACTED'
+Request method: 'GET'
+Request headers:
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '2eed2923-1762-11f0-a1fd-14755b7e8c4e'
+    'User-Agent': 'azsdk-python-ai-projects/1.0.0b8 Python/3.11.9 (Windows-10-10.0.26100-SP0)'
+    'Authorization': 'REDACTED'
+No body was attached to the request
+2025-04-12 01:51:32,755 - azure.core.pipeline.policies.http_logging_policy - INFO - Response status: 200
+Response headers:
+    'Date': 'Sat, 12 Apr 2025 05:51:32 GMT'
+    'Content-Type': 'application/json'
+    'Transfer-Encoding': 'chunked'
+    'Connection': 'keep-alive'
+    'Vary': 'REDACTED'
+    'Request-Context': 'REDACTED'
+    'x-ms-response-type': 'REDACTED'
+    'x-ms-middleware-request-id': 'REDACTED'
+    'openai-version': 'REDACTED'
+    'openai-organization': 'REDACTED'
+    'X-Request-ID': 'REDACTED'
+    'openai-processing-ms': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'apim-request-id': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'x-ms-region': 'REDACTED'
+    'x-aml-cluster': 'REDACTED'
+    'x-request-time': 'REDACTED'
+    'Content-Encoding': 'REDACTED'
+2025-04-12 01:51:32,756 - werkzeug - INFO - 127.0.0.1 - - [12/Apr/2025 01:51:32] "POST /api/chat HTTP/1.1" 200 -
+2025-04-12 01:57:39,285 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jamesbas\\Code\\DXCSupPay2\\src\\orchestration\\azure_agent_orchestrator.py', reloading
+2025-04-12 01:57:39,684 - werkzeug - INFO -  * Restarting with stat
+2025-04-12 01:57:43,801 - __main__ - INFO - Starting API server on port 5000
+2025-04-12 01:57:43,821 - werkzeug - WARNING -  * Debugger is active!
+2025-04-12 01:57:43,827 - werkzeug - INFO -  * Debugger PIN: 141-708-232
+2025-04-12 01:59:24,342 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jamesbas\\Code\\DXCSupPay2\\src\\orchestration\\azure_agent_orchestrator.py', reloading
+2025-04-12 01:59:24,684 - werkzeug - INFO -  * Restarting with stat
+2025-04-12 01:59:29,146 - __main__ - INFO - Starting API server on port 5000
+2025-04-12 01:59:29,166 - werkzeug - WARNING -  * Debugger is active!
+2025-04-12 01:59:29,172 - werkzeug - INFO -  * Debugger PIN: 141-708-232
