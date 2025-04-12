@@ -1,8 +1,8 @@
-The overtime supplemental pay for employee **10000518** is calculated as follows:
+To calculate the supplemental pay for overtime work for employee 10000518, I need the following information:
 
-- **October 2024** (9.3 hours): £250.58
-- **November 2024** (4 hours): £107.78
+1. The employee's base hourly pay rate.
+2. The number of overtime hours worked.
+3. Any specific overtime policy that applies, such as rates different from the standard of 1.5x base pay.
+4. Applicable tax rates for withholding.
 
-**Total Overtime Pay**: £358.36
-
-Next, I will apply the applicable tax withholdings and deductions. If you have the tax rate or withholding details, please provide them for accurate calculations.
+Please provide the necessary details, or let me know if these details are included in the uploaded files, so I can extract them accordingly and perform the calculation.

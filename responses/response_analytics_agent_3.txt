@@ -1,19 +1,7 @@
-The histograms provide further insights into the distribution of hours worked:
+The breakdown of supplemental pay hours by wage type reveals various patterns across categories. For instance:
 
-1. **September 2024**:
-   - The majority of employees worked between 25 to 75 hours.
-   - A fairly symmetrical distribution with moderate variability.
+- **Call Out 1.5**: This category shows relatively high activity with a steady decrease from September (2684 hours) to December (205.40 hours).
+- **Call Out 1.2 X HrRt**: Several categories, like this one, also experience a decline, aligning with general trends.
+- **Standby categories**: Some categories (e.g., "Standby £70") show sharp reductions across months, indicating potential changes in Standby hours or shifts.
 
-2. **October 2024**:
-   - Hours worked are skewed heavily toward lower values (less than 10 hours), indicating a significant reduction in activity.
-   - Few extreme outliers are visible above 100 hours.
-
-3. **November 2024**:
-   - Similar skewed distribution to October, but with a wider variability.
-   - Visible anomalies (e.g., hours worked exceeding 500) and potential negative values require data validation.
-
-### Observations:
-- A sharp decline in hours worked post-September indicates potential seasonal or operational changes.
-- Extreme outliers in October and November necessitate further investigation and potential correction.
-
-Would you like me to address the anomalies or analyze trends relative to other factors, such as wage type?
+To better visualize these trends and identify major contributors, I propose plotting the top wage types (by total hours) across the months. Shall I proceed with creating these visualizations?

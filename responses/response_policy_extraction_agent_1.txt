@@ -1,1 +1,22 @@
-I have successfully extracted and cleaned the standby payment data for UK employees. The table contains different pay groups and their associated standby policies. Let me summarize the key details for clarity:
+I successfully extracted standby payment details from the relevant sheet. Below is a summary of standby payment-related policies:
+
+1. **General Standby Pay Rates**:
+   - **Mon-Fri**: £35/day
+   - **Sat-Sun and Public Holidays**: £60/day.
+
+2. **Alternative Pay Groups**:
+   - For EON Pay (ES), the rates are:
+     - Mon-Fri: £36/day
+     - Sat, Sun & Public Holidays: £55.17/day.
+
+3. **Call Out Policies**:
+   - Mon - Sun Call Out: Is paid at *1.50 hourly rate multiplier*.
+   - Call Out triggers overtime rates; specific allowances may apply for Public Holidays (subject to policy).
+
+4. **Overtime Rules**:
+   - Overtime policies typically apply for hours exceeding Full-Time Equivalent (e.g., X multiplier).
+
+5. **Shift Restrictions**:
+   - Typical working shifts are capped at **10 hours maximum**.
+
+Please let me know if you need further details or specifics for any employee category!
