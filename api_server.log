@@ -4782,3 +4782,23 @@ Response headers:
 2025-04-12 01:59:29,146 - __main__ - INFO - Starting API server on port 5000
 2025-04-12 01:59:29,166 - werkzeug - WARNING -  * Debugger is active!
 2025-04-12 01:59:29,172 - werkzeug - INFO -  * Debugger PIN: 141-708-232
+2025-04-15 16:00:39,588 - __main__ - INFO - Starting API server on port 5000
+2025-04-15 16:00:40,385 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.0.0.248:5000
+2025-04-15 16:00:40,385 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-04-15 16:00:40,396 - werkzeug - INFO -  * Restarting with stat
+2025-04-15 16:00:46,612 - __main__ - INFO - Starting API server on port 5000
+2025-04-15 16:00:46,648 - werkzeug - WARNING -  * Debugger is active!
+2025-04-15 16:00:46,656 - werkzeug - INFO -  * Debugger PIN: 141-708-232
+2025-04-15 16:33:16,119 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jamesbas\\Code\\DXCSupPay2\\src\\agents\\azure_agents_definition.py', reloading
+2025-04-15 16:33:16,832 - werkzeug - INFO -  * Restarting with stat
+2025-04-15 16:34:57,101 - __main__ - INFO - Starting API server on port 5000
+2025-04-15 16:34:57,806 - werkzeug - WARNING -  * Debugger is active!
+2025-04-15 16:34:57,815 - werkzeug - INFO -  * Debugger PIN: 141-708-232
+2025-04-15 16:38:03,493 - werkzeug - INFO -  * Detected change in 'C:\\Users\\jamesbas\\Code\\DXCSupPay2\\test_azure_agent_service.py', reloading
+2025-04-15 16:38:03,888 - werkzeug - INFO -  * Restarting with stat
+2025-04-15 16:38:08,578 - __main__ - INFO - Starting API server on port 5000
+2025-04-15 16:38:08,605 - werkzeug - WARNING -  * Debugger is active!
+2025-04-15 16:38:08,610 - werkzeug - INFO -  * Debugger PIN: 141-708-232

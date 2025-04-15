@@ -321,8 +321,9 @@ async def test_agent_orchestrator(debug_mode=False, test_model=None, disable_too
         
         # Test running each agent type
         test_queries = {
-            "policy_extraction_agent": "What are the current standby payment policies for UK employees?",
-            "pay_calculation_agent": "Calculate the appropriate supplemental pay for overtime work for employee 10000518",
+            "policy_extraction_agent": "What are the current standby payment policies for UK employees ?",
+            "pay_calculation_agent": "Calculate the appropriate supplemental pay for overtime work for employee 10000518 ?",
+            "pay_calculation_agent": "I have an employee.  Based on the payment term, what is Overtime and Standby calculation for 10002329 ?",
             "analytics_agent": "Identify trends in supplemental pay over the last quarter"
         }
         
@@ -397,6 +398,11 @@ async def test_intelligent_orchestrator(debug_mode=False, test_model=None, disab
             },
             {
                 "query": "Calculate the appropriate supplemental pay for overtime work for employee 10000518",
+                "expected_agent": "pay_calculation_agent",
+                "description": "Pay calculation query"
+            },
+            {
+                "query": "I have an employee.  Based on the payment term, what is Overtime and Standby calculation for 10002329 ?",
                 "expected_agent": "pay_calculation_agent",
                 "description": "Pay calculation query"
             },
