@@ -47,8 +47,8 @@ export async function POST(req: NextRequest) {
             disableTools,
             files 
           }),
-          // Use a longer timeout for Excel processing
-          signal: AbortSignal.timeout(60000)
+          // Use a longer timeout for complex queries that might generate tables
+          signal: testType === 'default' ? AbortSignal.timeout(300000) : AbortSignal.timeout(120000)
         });
         
         if (!response.ok) {
@@ -77,7 +77,7 @@ export async function POST(req: NextRequest) {
             disable_tools: disableTools,
             files 
           }),
-          signal: AbortSignal.timeout(60000)
+          signal: testType === 'default' ? AbortSignal.timeout(300000) : AbortSignal.timeout(120000)
         });
         
         if (!altResponse.ok) {

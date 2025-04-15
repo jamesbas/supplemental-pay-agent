@@ -8,6 +8,82 @@ import { FiSend, FiUpload, FiChevronLeft, FiMoon, FiSun, FiInfo, FiSettings, FiX
 import { toast } from "sonner"
 import { useTheme } from "next-themes"
 
+// Utility function to convert ASCII/Markdown tables to HTML
+const formatTableContent = (content: string): string => {
+  // Check if the content contains a table pattern (rows with multiple | characters)
+  const hasTablePattern = /^[|\-+]*\|[|\-+]*$/m.test(content);
+  
+  if (!hasTablePattern) {
+    return content;
+  }
+  
+  // Split the content by lines
+  const lines = content.split('\n');
+  let htmlContent = content;
+  
+  // Find table sections (groups of lines with | characters)
+  let inTable = false;
+  let tableContent = '';
+  let formattedContent = '';
+  
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    
+    // Check if line is part of a table
+    if (line.includes('|') && (line.trim().startsWith('|') || line.trim().endsWith('|'))) {
+      if (!inTable) {
+        inTable = true;
+        tableContent = '<table class="formatted-table">\n<thead>\n';
+      }
+      
+      // Skip separator lines
+      if (line.replace(/[|\-+\s]/g, '') === '') {
+        if (tableContent.includes('<thead>') && !tableContent.includes('</thead>')) {
+          tableContent += '</thead>\n<tbody>\n';
+        }
+        continue;
+      }
+      
+      // Process table row
+      const cells = line.split('|').filter(cell => cell !== '');
+      tableContent += '<tr>\n';
+      
+      cells.forEach(cell => {
+        const tag = tableContent.includes('<tbody>') ? 'td' : 'th';
+        tableContent += `  <${tag}>${cell.trim()}</${tag}>\n`;
+      });
+      
+      tableContent += '</tr>\n';
+    } else {
+      if (inTable) {
+        inTable = false;
+        if (tableContent.includes('<tbody>')) {
+          tableContent += '</tbody>\n';
+        } else {
+          tableContent += '</thead>\n';
+        }
+        tableContent += '</table>\n';
+        formattedContent += tableContent;
+      }
+      formattedContent += line + '\n';
+    }
+  }
+  
+  // Close the table if we reached the end
+  if (inTable) {
+    if (tableContent.includes('<tbody>')) {
+      tableContent += '</tbody>\n';
+    } else {
+      tableContent += '</thead>\n';
+    }
+    tableContent += '</table>\n';
+    formattedContent += tableContent;
+  }
+  
+  // Return original content if no tables were found
+  return formattedContent || content;
+};
+
 // Types
 interface Message {
   role: "user" | "assistant" | "system"
@@ -148,7 +224,8 @@ export default function ChatPage() {
           testType,
           disableTools,
           files: fileIds
-        })
+        }),
+        signal: AbortSignal.timeout(300000) // 5 minute timeout for complex queries
       })
       
       if (!response.ok) {
@@ -174,7 +251,21 @@ export default function ChatPage() {
       
     } catch (error) {
       console.error('Error sending message:', error)
-      toast.error("Failed to get a response. Please try again.")
+      
+      // Provide specific error message based on error type
+      if (error instanceof DOMException && error.name === 'TimeoutError') {
+        toast.error("The request timed out. Your query may be too complex for the current timeout settings.")
+        
+        // Add the timeout error as a system message
+        const errorMessage: Message = {
+          role: "system",
+          content: "The server request timed out. Complex queries like tables may take longer to process than the current timeout allows. Please try a simpler query or contact support.",
+          timestamp: new Date()
+        }
+        setMessages(prev => [...prev, errorMessage])
+      } else {
+        toast.error("Failed to get a response. Please try again.")
+      }
     } finally {
       setIsLoading(false)
     }
@@ -248,6 +339,8 @@ export default function ChatPage() {
               <button 
                 onClick={() => setShowSettings(false)}
                 className="text-muted-foreground hover:text-foreground"
+                aria-label="Close settings"
+                title="Close settings"
               >
                 <FiX className="h-5 w-5" />
               </button>
@@ -321,7 +414,10 @@ export default function ChatPage() {
                       )}
                       
                       {/* Message content */}
-                      <div className="whitespace-pre-wrap">{message.content}</div>
+                      <div 
+                        className="whitespace-pre-wrap message-content" 
+                        dangerouslySetInnerHTML={{ __html: formatTableContent(message.content) }}
+                      />
                       
                       {/* Timestamp */}
                       <div className="mt-1 text-right text-xs opacity-70">
