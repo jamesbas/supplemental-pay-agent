@@ -238,7 +238,7 @@ export default function ChatPage() {
       const assistantMessage: Message = {
         role: "assistant",
         content: data.content,
-        timestamp: new Date(data.timestamp),
+        timestamp: data.timestamp ? new Date(data.timestamp) : new Date(),
         files: data.files
       }
       
