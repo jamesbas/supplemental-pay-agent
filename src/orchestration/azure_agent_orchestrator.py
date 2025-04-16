@@ -369,6 +369,17 @@ class AzureAgentOrchestrator:
         # Initialize agent definitions with the configuration
         self.agent_definitions = AzureAgentDefinitions(self.config)
         
+        # Try to load agent IDs from file
+        saved_agent_ids = self.agent_definitions.load_agent_ids()
+        if saved_agent_ids:
+            self.agent_ids = saved_agent_ids
+            self.logger.info(f"Loaded {len(saved_agent_ids)} agent IDs from file")
+            
+            # Asynchronously validate the agent IDs
+            # We'll create a task but not wait for it,
+            # as validation will happen when it's actually needed
+            self._validation_scheduled = True
+        
         # Set default values for generation
         self.temperature = self.config.get("temperature", 0.7)
         self.top_p = self.config.get("top_p", 0.95)
@@ -622,6 +633,12 @@ class AzureAgentOrchestrator:
             
         self.logger.info(f"Routing request: {query}")
         
+        # If we loaded agent IDs from file, validate them first
+        if hasattr(self, '_validation_scheduled') and self._validation_scheduled and self.agent_ids:
+            self.logger.info("Validating previously loaded agent IDs before processing request")
+            await self.validate_loaded_agent_ids()
+            self._validation_scheduled = False
+        
         try:
             # Use the intelligent orchestrator to analyze the query
             routing_info = await self.orchestrator_agent.analyze_query(query)
@@ -659,7 +676,21 @@ class AzureAgentOrchestrator:
                     agent_id = self.agent_ids[fallback_agent_type]
                     self.logger.warning(f"Using fallback agent: {fallback_agent_type}")
                     routing_info["context"] += f" (Fallback to {fallback_agent_type} used)"
-                
+                    
+                # If still no valid agent found, deploy new agents
+                if not agent_id:
+                    self.logger.warning("No valid agents found, deploying new agents")
+                    self.agent_ids = await self.agent_definitions.deploy_agents()
+                    
+                    # Try to get the agent ID again
+                    agent_id = self.agent_ids.get(agent_type)
+                    if not agent_id and self.agent_ids:
+                        # Use any available agent as last resort
+                        fallback_agent_type = next(iter(self.agent_ids))
+                        agent_id = self.agent_ids[fallback_agent_type]
+                        self.logger.warning(f"Using newly created fallback agent: {fallback_agent_type}")
+                        routing_info["context"] += f" (Fallback to {fallback_agent_type} used)"
+                        
                 # If still no agent found, return error
                 if not agent_id:
                     error_message = f"No agent found for type: {agent_type} and no fallbacks available"
@@ -834,124 +865,166 @@ class AzureAgentOrchestrator:
             return {"error": error_msg, "thread_id": thread_id, "timestamp": datetime.datetime.now().isoformat()}
 
     async def _run_agent_via_sdk(self, agent_id: str, message_content: str, disable_tools: bool = False) -> Dict[str, Any]:
-        """Run a specific Azure AI agent by creating a new thread and sending a message.
-        
-        This is a simplified method for direct agent testing without requiring a pre-existing thread.
-        Uses the direct create_and_process_run pattern seen in official samples.
+        """Run a specific Azure AI agent directly with the SDK.
         
         Args:
-            agent_id (str): The agent ID to run
-            message_content (str): The message content to process
-            disable_tools (bool): If True, disable all tools to isolate agent issues
+            agent_id (str): The ID of the agent to run.
+            message_content (str): The message to send to the agent.
+            disable_tools (bool, optional): Whether to disable tools. Defaults to False.
             
         Returns:
-            dict: The result of the agent run and thread_id, or error information
+            Dict[str, Any]: The response from the agent.
         """
-        if self.project_client is None:
-            error_message = "AIProjectClient not initialized"
-            self.logger.error(error_message)
-            return {"error": error_message}
+        self.logger.info(f"Running agent {agent_id} via SDK")
         
+        # If we loaded agent IDs from file, validate them first
+        if hasattr(self, '_validation_scheduled') and self._validation_scheduled and self.agent_ids:
+            self.logger.info("Validating previously loaded agent IDs before processing request")
+            await self.validate_loaded_agent_ids()
+            self._validation_scheduled = False
+        
+        # Validate agent exists
         try:
-            # Create a new thread for this SDK-based call
-            thread = self.project_client.agents.create_thread()
-            thread_id = thread.id
-            self.logger.info(f"Created thread {thread_id} for SDK-based agent call")
+            # Get the agent to verify it exists
+            agent = self.project_client.agents.get_agent(agent_id=agent_id)
+            self.logger.info(f"Verified agent {agent_id} exists")
+        except Exception as e:
+            self.logger.warning(f"Agent {agent_id} no longer exists: {str(e)}")
             
-            # Add the user message to the thread
-            self.logger.debug(f"Adding message to thread {thread_id}: {message_content[:100]}...")
-            self.project_client.agents.create_message(
-                thread_id=thread_id,
-                role="user",
-                content=message_content
-            )
-            self.logger.info(f"Added message to thread: {thread_id}")
-            
-            # Set up run parameters
-            run_params = {
-                "thread_id": thread_id,
-                "agent_id": agent_id
-            }
-            
-            # Add tool_choice parameter if disabling tools
-            if disable_tools:
-                run_params["tool_choice"] = "none"
-                self.logger.info("Running with tools disabled")
-            
-            # Start a run
-            self.logger.info(f"Running agent {agent_id} on thread {thread_id}")
-            run = self.project_client.agents.create_run(**run_params)
-            self.logger.info(f"Created run {run.id} with status: {run.status}")
-            
-            # Poll for run completion with exponential backoff
-            max_retries = 15
-            retry_count = 0
-            retry_delay = 1  # Initial delay in seconds
-            
-            while retry_count < max_retries:
-                # Get the current run status
-                run = self.project_client.agents.get_run(
-                    thread_id=thread_id,
-                    run_id=run.id
-                )
-                
-                current_status = run.status
-                self.logger.debug(f"Run {run.id} status: {current_status}")
-                
-                if current_status == "completed":
-                    self.logger.info(f"Run completed successfully: {run.id}")
+            # Try to find the agent_type for this ID
+            agent_type = None
+            for a_type, a_id in self.agent_ids.items():
+                if a_id == agent_id:
+                    agent_type = a_type
                     break
-                elif current_status in ["failed", "cancelled", "expired"]:
-                    error_msg = f"Run {run.id} ended with status: {current_status}"
-                    self.logger.error(error_msg)
-                    
-                    # Try to get run steps for debugging
-                    try:
-                        steps = self.project_client.agents.list_run_steps(thread_id=thread_id, run_id=run.id)
-                        step_info = [{"id": step.id, "status": step.status, "type": step.type} for step in steps.data]
-                        self.logger.debug(f"Run steps: {json.dumps(step_info, indent=2)}")
-                    except Exception as steps_error:
-                        self.logger.error(f"Could not retrieve run steps: {str(steps_error)}")
-                    
-                    return {"error": error_msg, "thread_id": thread_id, "run_id": run.id, "timestamp": datetime.datetime.now().isoformat()}
+            
+            if agent_type:
+                # If agent doesn't exist but we have its type, redeploy all agents
+                self.logger.info(f"Redeploying agents as agent {agent_type} with ID {agent_id} doesn't exist")
+                self.agent_ids = await self.agent_definitions.deploy_agents()
                 
-                # Exponential backoff
-                await asyncio.sleep(retry_delay)
-                retry_delay = min(retry_delay * 2, 30)  # Cap at 30 seconds max delay
-                retry_count += 1
+                # Get the new agent ID for the same type
+                agent_id = self.agent_ids.get(agent_type)
+                if not agent_id:
+                    error_message = f"Failed to redeploy agent for type {agent_type}"
+                    self.logger.error(error_message)
+                    return {"error": error_message, "timestamp": datetime.datetime.now().isoformat()}
+            else:
+                # If we can't determine the agent type, redeploy all agents
+                self.logger.warning("Unknown agent ID, redeploying all agents")
+                self.agent_ids = await self.agent_definitions.deploy_agents()
+                
+                # Use the first agent as fallback
+                if not self.agent_ids:
+                    error_message = "Failed to deploy any agents"
+                    self.logger.error(error_message)
+                    return {"error": error_message, "timestamp": datetime.datetime.now().isoformat()}
+                
+                agent_type = next(iter(self.agent_ids))
+                agent_id = self.agent_ids[agent_type]
+                self.logger.info(f"Using newly deployed agent {agent_type} with ID {agent_id}")
+                
+        # Create a thread
+        thread = self.project_client.agents.create_thread()
+        thread_id = thread.id
+        self.logger.info(f"Created thread {thread_id}")
+        
+        # Add message to the thread
+        message = self.project_client.agents.create_message(
+            thread_id=thread_id,
+            role="user",
+            content=message_content
+        )
+        self.logger.info(f"Added message to thread {thread_id}")
+        
+        # Create run parameters
+        run_params = {
+            "thread_id": thread_id,
+            "agent_id": agent_id,
+        }
+        
+        if disable_tools:
+            run_params["tools_config"] = {"code_interpreter": {"enabled": False}}
+            self.logger.info("Disabling tools for this run")
+        
+        # Create and process run
+        try:
+            self.logger.info(f"Creating run for agent {agent_id} on thread {thread_id}")
+            run = self.project_client.agents.create_and_process_run(**run_params)
             
-            if retry_count >= max_retries:
-                error_msg = f"Maximum retries reached waiting for run {run.id} to complete"
-                self.logger.error(error_msg)
-                return {"error": error_msg, "thread_id": thread_id, "run_id": run.id, "timestamp": datetime.datetime.now().isoformat()}
-            
-            # Get the messages from the thread
+            # Get the messages after the run is complete
             messages = self.project_client.agents.list_messages(thread_id=thread_id)
             
-            if messages.data:
-                # Filter for assistant messages only
-                assistant_messages = [
-                    msg for msg in messages.data 
-                    if msg.role == "assistant" and hasattr(msg, "created_at")
-                ]
-                
-                # Sort by creation time (newest first)
-                assistant_messages.sort(key=lambda msg: msg.created_at, reverse=True)
-                
-                if assistant_messages:
-                    last_message = assistant_messages[0]
-                    
-                    # Get the text content
-                    if hasattr(last_message, "content") and last_message.content:
-                        for content_part in last_message.content:
-                            if hasattr(content_part, "text") and hasattr(content_part.text, "value"):
-                                return {"result": content_part.text.value, "thread_id": thread_id, "run_id": run.id, "timestamp": datetime.datetime.now().isoformat()}
+            # Get the latest assistant message
+            assistant_messages = [msg for msg in messages.data if msg.role == "assistant"]
             
-            error_msg = "No assistant messages found in thread or message format not recognized"
-            self.logger.error(error_msg)
-            return {"error": error_msg, "thread_id": thread_id, "run_id": run.id, "timestamp": datetime.datetime.now().isoformat()}
-            
+            if assistant_messages:
+                latest_message = assistant_messages[-1]
+                content = []
+                
+                # Extract the content from the message
+                for item in latest_message.content:
+                    if hasattr(item, "text"):
+                        content.append(item.text.value)
+                    elif hasattr(item, "image_url"):
+                        content.append("[Image]")
+                
+                result = "\n".join(content)
+                self.logger.info(f"Agent response: {result[:100]}...")
+                
+                # Return the result with thread and run IDs
+                return {
+                    "result": result,
+                    "thread_id": thread_id,
+                    "run_id": run.id,
+                    "timestamp": datetime.datetime.now().isoformat()
+                }
+            else:
+                error_message = "No assistant message found in response"
+                self.logger.error(error_message)
+                return {"error": error_message, "thread_id": thread_id, "run_id": run.id, "timestamp": datetime.datetime.now().isoformat()}
+                
         except Exception as e:
-            error_msg = f"Error in SDK-based agent run: {str(e)}"
-            self.logger.error(error_msg, exc_info=True)
-            return {"error": error_msg, "timestamp": datetime.datetime.now().isoformat()} 
+            error_message = f"Error running agent: {str(e)}"
+            self.logger.error(error_message, exc_info=True)
+            return {"error": error_message, "timestamp": datetime.datetime.now().isoformat()}
+
+    async def validate_loaded_agent_ids(self) -> bool:
+        """
+        Validate that the loaded agent IDs still exist in Azure AI Foundry.
+        
+        Returns:
+            bool: True if all agent IDs are valid, False otherwise
+        """
+        if not self.agent_ids:
+            return False
+            
+        self.logger.info(f"Validating {len(self.agent_ids)} loaded agent IDs")
+        validated_ids = {}
+        
+        # Try to validate existing IDs
+        for agent_type, agent_id in self.agent_ids.items():
+            try:
+                # Attempt to get the agent to verify it exists
+                agent = self.project_client.agents.get_agent(agent_id=agent_id)
+                validated_ids[agent_type] = agent_id
+                self.logger.info(f"Verified existing agent {agent_type} with ID {agent_id}")
+            except Exception as e:
+                self.logger.warning(f"Agent {agent_type} with ID {agent_id} no longer exists: {str(e)}")
+                
+        # Update the agent_ids dictionary
+        if not validated_ids:
+            self.logger.warning("No valid agent IDs found, will need to recreate all agents")
+            self.agent_ids = {}
+            return False
+            
+        # If some agents are invalid, update the agent_ids dictionary
+        if len(validated_ids) < len(self.agent_ids):
+            self.logger.warning(f"Only {len(validated_ids)} of {len(self.agent_ids)} agent IDs are valid")
+            self.agent_ids = validated_ids
+            # Save the updated agent IDs
+            if hasattr(self, 'agent_definitions') and self.agent_definitions:
+                self.agent_definitions.save_agent_ids(validated_ids)
+            return False
+            
+        return True 

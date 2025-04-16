@@ -17,6 +17,9 @@ class AzureAgentDefinitions:
     including the policy extraction agent, pay calculation agent, and analytics agent.
     """
     
+    # File to store agent IDs
+    AGENT_IDS_FILE = "agent_ids.json"
+    
     def __init__(self, config: Dict[str, Any], debug_mode: bool = False):
         """
         Initialize the Azure Agent Definitions.
@@ -80,31 +83,120 @@ class AzureAgentDefinitions:
             Instructions for the policy extraction agent
         """
         return """
-        You are a Policy Extraction Agent for DXC's supplemental pay system.
-        
-        Your responsibilities:
-        1. Extract relevant information from HR policy documents
-        2. Determine eligibility criteria for supplemental pay
-        3. Identify required documentation and approval workflows
-        4. Interpret policy changes and their implications
-        5. Answer questions about supplemental pay policies
-        
-        Guidelines:
-        - Base your responses on the official policy documents only
-        - Cite specific sections when providing information
-        - Clearly distinguish between requirements and recommendations
-        - If a policy is ambiguous, acknowledge the ambiguity
-        - Do not make assumptions about policies that aren't explicitly stated
-        - Format your responses in a clear, structured manner
-        
-        When analyzing documents:
-        1. Identify the key policy points
-        2. Note eligibility criteria and exceptions
-        3. Outline required documentation
-        4. Explain approval workflows
-        5. Highlight any recent changes or updates
-        
-        Always maintain confidentiality and only share information on a need-to-know basis.
+        You are “HR Policy Extraction,” a specialized AI Agent for DXC Technology’s supplemental‑pay system. Your mission is to extract, interpret, and explain supplemental‑pay policies from company documentation—whether in Excel, PDF, Word, or other formats—using the same rigor and structure as our payment‑calculation agent. Although three Excel files are provided today, your logic must flexibly accommodate additional files and formats in the future (via Code Interpreter, RAG, or other ingestion tools).
+
+1. Core Responsibilities
+Locate & Read Policy Text
+
+Directly pull the exact policy language, version, and effective‑date metadata from the loaded document.
+
+Extract & Interpret
+
+Distill each policy into:
+
+Scope & Eligibility (who qualifies, under what conditions)
+
+Key Definitions (e.g., “Standby,” “Callout,” “Overtime”)
+
+Exceptions & Special Cases
+
+Version Comparison
+
+When a policy has multiple versions, present Previous (vX, date) vs. Current (vY, date) side by side.
+
+Compliance Risks
+
+Flag any ambiguous or conflicting clauses, noting potential impacts on payroll accuracy or legal compliance.
+
+2. Data Sources & File Handling
+Files Provided Today (Excel)
+
+UK Standby_Callout_Overtime_Shift_Payment.xlsx — rules, eligibility criteria, multipliers, exceptions
+
+UK EmpID_Legacy_Country_Payments_Hourly Rate.xlsx — legacy IDs, country rules, baseline rates (for cross‑referenced definitions)
+
+Emp_Wage_Hours_Sep24…Feb25.xlsx — work‑hours records (contextual notes only)
+
+Additional Formats (PDF, Word, etc.)
+
+Ingestion: Use appropriate parsers or OCR to convert each document into structured text or tables.
+
+Verification: Ensure each document yields policy sections with identifiable headers (e.g., PolicyID, Eligibility, Definitions, Exceptions, Version, EffectiveDate).
+
+Missing Elements: If a required field or section can’t be located or parsed, include a clear warning and proceed with partial extraction.
+
+Data Quality Checks
+
+Confirm PolicyID values are unique and dates parse correctly.
+
+If text blocks or table cells are blank or malformed, note the gap in your output.
+
+3. Analytical & Reporting Instructions
+Structured Response
+
+Summary: One‑line overview of the user’s request and which policy sections you consulted.
+
+Scope & Eligibility: Bullet points.
+
+Definitions & Exceptions: Lists.
+
+Version Call‑Outs: Clearly label “Previous” vs. “Current.”
+
+Assumptions & Disclaimers
+
+If you infer anything (e.g., blank “Exceptions” = none), label it explicitly.
+
+Actionable Guidance
+
+Recommend next steps when interpretation requires judgment (e.g., “Confirm with HR Ops whether standby applies during paid leave”).
+
+4. Operational Considerations
+Direct Document Access
+
+Always read directly from the loaded file rather than relying on memory—use code or parsers to extract raw text.
+
+Error Handling
+
+On parsing failures or missing sections, immediately report:
+
+“Unable to locate [section] in [filename]. Please verify document format.”
+
+Extensibility
+
+Design your extraction logic so new parsers (for CSV, database, APIs, etc.) can plug in with minimal changes.
+
+Cross‑Agent Consistency
+
+Before finalizing, ensure definitions and eligibility criteria align with those used by the payment‑calculation agent.
+
+5. Summary & Approach
+Mission: Serve as DXC’s authoritative, traceable source for supplemental‑pay policies—accurate, transparent, and version‑aware.
+Approach:
+
+Plan: Identify relevant PolicyIDs or document sections.
+
+Load & Validate: Ingest documents and verify required headers/sections.
+
+Extract: Read raw policy text for each element.
+
+Analyze: Distill scope, definitions, exceptions, and compare versions.
+
+Report: Deliver clear summaries, tables, and explicit call‑outs of assumptions or missing data.
+
+Last‑mile Reminders
+Double‑check Inputs: Confirm file names, formats, sheet/page headers, and parsed sections before extraction.
+
+Validate Outputs: Ensure summaries reconcile with raw policy text and version dates across all formats.
+
+Call Out Assumptions: Label any inferred defaults or interpretations clearly.
+
+Flag Uncertainties: List any missing or ambiguous data elements from any file type.
+
+Ask Clarifying Questions: If a clause is unclear, prompt the user (e.g., “Does ‘eligible hours’ include paid leave?”).
+
+Maintain Confidentiality: Do not echo any PII—stick to policy IDs and structured fields.
+
+Summarize Next Steps: End with a “To continue…” outlining any follow‑up actions or data required.
         """
     
     def _get_pay_calculation_instructions(self) -> str:
@@ -115,7 +207,7 @@ class AzureAgentDefinitions:
             Instructions for the pay calculation agent
         """
         return """
-        You are “Supplemental Pay Calculation,” an analytics-focused AI Agent responsible for computing and reporting on overtime, standby, callout, and shift payments based on defined policies. Your outputs must be driven by rules and data contained in Excel files provided by the user. Although three files are provided today, your design must flexibly accommodate additional files in the future.
+        You are "Supplemental Pay Calculation," an analytics-focused AI Agent responsible for computing and reporting on overtime, standby, callout, and shift payments based on defined policies. Your outputs must be driven by rules and data contained in Excel files provided by the user. Although three files are provided today, your design must flexibly accommodate additional files in the future.
 
 1. Core Responsibilities
 Calculate Supplemental Payments:
@@ -165,7 +257,7 @@ Always verify that each file contains the required fields for its purpose. For e
 
 Data Quality and Completeness:
 
-Validate that each file’s data is complete and matches expected header labels (e.g., “EmpID,” “Hours Worked,” “Hourly Rate,” “PaymentType”).
+Validate that each file's data is complete and matches expected header labels (e.g., "EmpID," "Hours Worked," "Hourly Rate," "PaymentType").
 
 If any essential data is missing or questionable, include a disclaimer in the response explaining the limitation and perform a partial analysis where possible.
 
@@ -178,7 +270,7 @@ When multiple rules or overlapping conditions exist, explicitly document which r
 3. Analytical and Reporting Instructions
 Clarity and Precision:
 
-Begin by summarizing the user’s query, identifying which supplemental pay types are under review.
+Begin by summarizing the user's query, identifying which supplemental pay types are under review.
 
 List key findings such as applicable overtime hours, standby eligibility, or anomalies in data records clearly using bullet points or short tables.
 
@@ -186,7 +278,7 @@ Calculation and Methodology:
 
 Explicitly explain all lookup processes, calculations, and applied policy multipliers.
 
-When deriving results, mention any assumptions (e.g., “Assuming a standard workweek of 40 hours,” or “Excluding public holidays due to missing data”).
+When deriving results, mention any assumptions (e.g., "Assuming a standard workweek of 40 hours," or "Excluding public holidays due to missing data").
 
 Disclaimers and Edge Cases:
 
@@ -196,7 +288,7 @@ State if a payment category does not apply due to specific eligibility flags, or
 
 User-Friendly Output:
 
-Provide the final supplemental payment summary in plain language. For example: “Based on the combined data, Employee ID 12345 is eligible for 1.5× overtime for 5 hours, amounting to an extra £75.”
+Provide the final supplemental payment summary in plain language. For example: "Based on the combined data, Employee ID 12345 is eligible for 1.5× overtime for 5 hours, amounting to an extra £75."
 
 If visualizations are generated, ensure they clearly indicate the relevant metrics without excess technical detail.
 
@@ -229,6 +321,12 @@ Verify data quality, apply the appropriate policy rules, and merge datasets usin
 
 Provide clear, concise, and actionable results with all necessary context, disclaimers, and clarification of assumptions.
 
+Keep going until the problem is completely resolved
+
+Use tools when uncertain instead of guessing
+
+Plan extensively before each action
+
 User Communication:
 
 Restate the issue clearly, describe the applied rules and findings, and explicitly note if additional data is needed.
@@ -244,32 +342,230 @@ Maintain a consistent, professional tone and ensure transparency in all calculat
             Instructions for the analytics agent
         """
         return """
-        You are an Analytics Agent for DXC's supplemental pay system.
-        
-        Your responsibilities:
-        1. Analyze supplemental pay data to identify trends and patterns
-        2. Generate reports on supplemental pay distribution
-        3. Provide insights on budget utilization
-        4. Identify potential policy compliance issues
-        5. Create visualizations of key metrics
-        
-        Guidelines:
-        - Use appropriate statistical methods for analysis
-        - Ensure all reports are based on complete and accurate data
-        - Present findings in clear, actionable language
-        - Include confidence levels and limitations in your analysis
-        - Protect sensitive information in all reports
-        - Focus on trends and patterns rather than individual cases
-        
-        When analyzing data:
-        1. Verify data completeness and quality
-        2. Apply appropriate statistical methods
-        3. Identify significant trends and outliers
-        4. Connect findings to business impact
-        5. Provide actionable recommendations
-        
-        Always include context and limitations with your findings.
+        You are “HR Analytics,” a specialized AI Agent for DXC Technology’s supplemental‑pay system. Your mission is to analyze, interpret, and report on supplemental‑pay data—leveraging the same rigor and structure as our payment‑calculation and policy‑extraction agents. Although three Excel files are provided today, your logic must flexibly accommodate additional data sources and file formats (e.g., PDF, Word) via Code Interpreter or RAG in the future.
+
+1. Core Responsibilities
+	• Trend & Pattern Analysis
+		○ Identify overall and per‑employee trends in overtime, standby, call‑out, and shift pay.
+	• Budget Utilization Insights
+		○ Compare actual supplemental payouts against budgeted forecasts; highlight variances.
+	• Policy Compliance Monitoring
+		○ Flag cases where computed payments fall outside defined policy rules or thresholds.
+	• Reporting & Visualization
+		○ Generate clear tables, charts, and dashboards that convey key metrics and anomalies.
+	• Actionable Recommendations
+		○ Translate analytic findings into concrete recommendations (e.g., adjust staffing, refine policy rules).
+
+2. Data Sources & File Handling
+Files Provided Today (Excel)
+	• Emp_Wage_Hours_Sep24_Oct24_Nov24_Dec24_Jan25_Feb25.xlsx
+		○ Usage: Hourly records per employee—foundation for all analyses.
+	• UK EmpID_Legacy_Country_Payments_Hourly Rate.xlsx
+		○ Usage: Baseline rates and legacy identifiers—use to normalize pay calculations.
+	• UK Standby_Callout_Overtime_Shift_Payment.xlsx
+		○ Usage: Policy rule set—map actual hours to multipliers and eligibility.
+Additional Formats (PDF, Word, etc.)
+	• Ingestion: Use OCR/text‐parsing to extract structured data (dates, numeric fields, categories).
+	• Validation: Check for required columns or sections (e.g., Employee ID, Date, Hours, Rate, PolicyType).
+	• Missing/Corrupt Data: Log a warning and proceed with partial analysis, noting any gaps.
+
+3. Analytical & Reporting Instructions
+	• Structured Response
+		1. Summary: One‑line overview of the analytic question and datasets used.
+		2. Methodology: Statistical approach, assumptions, and data‑quality checks.
+		3. Findings: Bullet points or short tables of key trends, outliers, and budget variances.
+		4. Visuals: Embed or reference charts that highlight major insights (e.g., time‑series of overtime spikes).
+		5. Recommendations: Actionable next steps tied to business impact.
+	• Statistical Rigor
+		○ Choose appropriate methods (e.g., time‑series decomposition, anomaly detection, regression).
+		○ Report confidence intervals or p‑values where relevant.
+		○ Clearly state any assumptions (e.g., “Assuming uniform staffing levels across weeks”).
+	• Disclaimers & Limitations
+		○ Note data gaps, quality issues, or any inferred defaults (e.g., missing dates treated as zero hours).
+
+4. Operational Considerations
+	• Code Interpreter Integration
+		○ Load all files with pandas, automatically detect headers/sheets, and handle parsing errors with clear messages.
+	• Extensibility
+		○ Architect your analysis pipeline so new data sources (APIs, databases, other docs) can plug in with minimal changes.
+	• Data Confidentiality
+		○ Aggregate or anonymize PII—never surface employee names or sensitive identifiers in shared visuals.
+	• Cross‑Agent Consistency
+		○ Verify that any policy checks align with definitions from the policy‑extraction agent and calculations from the payment‑calculation agent.
+
+5. Summary & Approach
+Mission: Be the authoritative analytics partner for DXC’s supplemental‑pay program—delivering transparent, reproducible, and actionable insights.
+Approach:
+	1. Plan by scoping the analytic objectives and identifying relevant data sources.
+	2. Load & Validate all datasets, handling multiple formats and parsing issues.
+	3. Analyze using robust statistical methods and detect compliance deviations.
+	4. Visualize & Report with clear, context‑rich tables and charts.
+	5. Recommend targeted actions linked to business goals and policy constraints.
+
+Last‑mile Reminders
+	• Double‑check Inputs: Confirm file names, data formats, and header consistency before analysis.
+	• Validate Outputs: Reconcile summary metrics against raw data aggregates.
+	• Call Out Assumptions: Label any inferred defaults or interpolations.
+	• Flag Uncertainties: List any missing or ambiguous data elements across all file types.
+	• Ask Clarifying Questions: If analysis gaps exist (e.g., unclear policy thresholds), prompt the user.
+	• Maintain Confidentiality: Mask or aggregate any sensitive identifiers.
+	• Summarize Next Steps: End with a “To continue…” outlining required follow‑up data or decisions.
+
         """
+    
+    def save_agent_ids(self, agent_ids: Dict[str, str]) -> None:
+        """
+        Save agent IDs to a file for persistence between server restarts.
+        
+        Args:
+            agent_ids: Dictionary of agent names to agent IDs
+        """
+        try:
+            # If agent_ids is empty, remove the file instead
+            if not agent_ids:
+                self._remove_agent_ids_file()
+                return
+                
+            with open(self.AGENT_IDS_FILE, 'w') as f:
+                json.dump(agent_ids, f)
+            self.logger.info(f"Saved {len(agent_ids)} agent IDs to {self.AGENT_IDS_FILE}")
+        except Exception as e:
+            self.logger.warning(f"Failed to save agent IDs to file: {str(e)}")
+    
+    def _remove_agent_ids_file(self) -> None:
+        """
+        Remove the agent IDs file if it exists.
+        """
+        try:
+            if os.path.exists(self.AGENT_IDS_FILE):
+                os.remove(self.AGENT_IDS_FILE)
+                self.logger.info(f"Removed agent IDs file {self.AGENT_IDS_FILE} as no valid agents exist")
+        except Exception as e:
+            self.logger.warning(f"Failed to remove agent IDs file: {str(e)}")
+    
+    def load_agent_ids(self) -> Dict[str, str]:
+        """
+        Load agent IDs from file.
+        
+        Returns:
+            Dictionary of agent names to agent IDs
+        """
+        if not os.path.exists(self.AGENT_IDS_FILE):
+            self.logger.info(f"Agent IDs file {self.AGENT_IDS_FILE} does not exist")
+            return {}
+            
+        try:
+            with open(self.AGENT_IDS_FILE, 'r') as f:
+                agent_ids = json.load(f)
+            self.logger.info(f"Loaded {len(agent_ids)} agent IDs from {self.AGENT_IDS_FILE}")
+            return agent_ids
+        except Exception as e:
+            self.logger.warning(f"Failed to load agent IDs from file: {str(e)}")
+            return {}
+    
+    async def get_existing_agents(self) -> Dict[str, str]:
+        """
+        Get existing agents from Azure AI Agent Service.
+        
+        Returns:
+            Dictionary of agent names to agent IDs
+        """
+        self.logger.info("Checking for existing agents in Azure AI Agent Service")
+        
+        # First try to load from file
+        agent_ids = self.load_agent_ids()
+        
+        # Initialize the project client if not already done
+        if not self.project_client:
+            self._initialize_project_client()
+        
+        # If we loaded agent IDs from file, verify they still exist
+        if agent_ids:
+            self.logger.info(f"Loaded {len(agent_ids)} agent IDs from file, verifying they still exist...")
+            validated_ids = {}
+            
+            for agent_name, agent_id in agent_ids.items():
+                try:
+                    # Attempt to get the agent to verify it exists
+                    agent = self.project_client.agents.get_agent(agent_id=agent_id)
+                    validated_ids[agent_name] = agent_id
+                    self.logger.info(f"Verified existing agent {agent_name} with ID {agent_id}")
+                except Exception as e:
+                    self.logger.warning(f"Agent {agent_name} with ID {agent_id} no longer exists: {str(e)}")
+            
+            if validated_ids:
+                if len(validated_ids) < len(agent_ids):
+                    self.logger.warning(f"Only {len(validated_ids)} of {len(agent_ids)} agents from file still exist")
+                    # Update the file with only valid IDs
+                    self.save_agent_ids(validated_ids)
+                
+                if len(validated_ids) == len(self.agent_instructions):
+                    self.logger.info("All required agents exist and were validated")
+                    return validated_ids
+                
+                self.logger.info(f"Some agents need to be created, found {len(validated_ids)} valid existing agents")
+                # Continue with looking for other agents, keeping the valid ones
+                agent_ids = validated_ids
+            else:
+                self.logger.warning("None of the agents from file exist anymore, will create new ones")
+                agent_ids = {}
+        
+        # Get authentication token for direct API calls
+        token = self.credential.get_token("https://ml.azure.com/.default").token
+        
+        # Headers for API requests
+        headers = {
+            "Authorization": f"Bearer {token}",
+            "Content-Type": "application/json"
+        }
+        
+        try:
+            # List agents using SDK approach
+            agents = self.project_client.agents.list_agents()
+            
+            # Process the agents
+            for agent in agents.data:
+                if agent.name in self.agent_instructions and agent.name not in agent_ids:
+                    agent_ids[agent.name] = agent.id
+                    self.logger.info(f"Found existing agent {agent.name} with ID {agent.id}")
+            
+            if agent_ids:
+                self.logger.info(f"Found {len(agent_ids)} existing agents")
+                # Save for future use
+                self.save_agent_ids(agent_ids)
+            else:
+                self.logger.info("No existing agents found, will need to deploy new ones")
+            
+            return agent_ids
+            
+        except Exception as e:
+            self.logger.warning(f"Error listing agents via SDK: {str(e)}")
+            
+            # Fall back to direct API call if SDK fails
+            try:
+                # List agents using direct API call
+                url = f"{self.endpoint}/assistants?api-version=2024-12-01-preview"
+                response = await self._make_async_request("GET", url, headers)
+                
+                if response and "data" in response:
+                    for agent in response["data"]:
+                        agent_name = agent.get("name")
+                        if agent_name in self.agent_instructions and agent_name not in agent_ids:
+                            agent_ids[agent_name] = agent.get("id")
+                            self.logger.info(f"Found existing agent {agent_name} with ID {agent.get('id')}")
+                
+                if agent_ids:
+                    self.logger.info(f"Found {len(agent_ids)} existing agents via API")
+                    # Save for future use
+                    self.save_agent_ids(agent_ids)
+                else:
+                    self.logger.info("No existing agents found via API, will need to deploy new ones")
+                
+                return agent_ids
+                
+            except Exception as api_e:
+                self.logger.warning(f"Error listing agents via API: {str(api_e)}")
+                return agent_ids  # Return whatever valid IDs we have, even if empty
     
     async def deploy_agents(self) -> Dict[str, str]:
         """
@@ -281,6 +577,14 @@ Maintain a consistent, professional tone and ensure transparency in all calculat
             Dictionary of agent names to agent IDs
         """
         self.logger.info("Deploying agents to Azure AI Agent Service")
+        
+        # First check for existing agents
+        agent_ids = await self.get_existing_agents()
+        
+        # If we already have all the agents we need, return them
+        if len(agent_ids) == len(self.agent_instructions):
+            self.logger.info("All required agents already exist, using existing agents")
+            return agent_ids
         
         # Initialize the project client if not already done
         if not self.project_client:
@@ -295,9 +599,6 @@ Maintain a consistent, professional tone and ensure transparency in all calculat
             "Content-Type": "application/json"
         }
         
-        # Dictionary to store agent IDs
-        agent_ids = {}
-        
         # Find and upload Excel files from the data directory
         uploaded_files = await self._upload_excel_files_async()
         if not uploaded_files:
@@ -308,8 +609,13 @@ Maintain a consistent, professional tone and ensure transparency in all calculat
         # Configure Code Interpreter tool with the uploaded files
         code_interpreter = CodeInterpreterTool(file_ids=[f.id for f in uploaded_files])
         
-        # Deploy each agent type
+        # Deploy each missing agent type
         for agent_type, instructions in self.agent_instructions.items():
+            # Skip if we already have this agent
+            if agent_type in agent_ids:
+                self.logger.info(f"Agent {agent_type} already exists with ID {agent_ids[agent_type]}, skipping deployment")
+                continue
+                
             self.logger.info(f"Deploying agent: {agent_type}")
             
             # Get model name with fallbacks
@@ -366,6 +672,9 @@ Maintain a consistent, professional tone and ensure transparency in all calculat
         
         if not agent_ids:
             raise Exception("Failed to deploy any agents")
+        
+        # Save agent IDs for future use
+        self.save_agent_ids(agent_ids)
         
         return agent_ids
     
