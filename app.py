@@ -7,6 +7,7 @@ from flask_cors import CORS
 from werkzeug.utils import secure_filename
 from pathlib import Path
 from datetime import datetime
+import traceback
 
 # Import the Azure Agent Orchestrator
 from src.orchestration.azure_agent_orchestrator import AzureAgentOrchestrator
@@ -238,17 +239,36 @@ def chat():
             logger.error(f"Agent error: {response['error']}")
             content = f"Error: {response['error']}"
         
+        # Ensure we have a timestamp, use current time if not provided
+        timestamp = response.get("timestamp")
+        if not timestamp:
+            timestamp = datetime.now().isoformat()
+            logger.info(f"Using current timestamp: {timestamp} as agent response did not include one")
+        
         # Return the response
         return jsonify({
             "content": content,
-            "timestamp": str(response.get("timestamp", "")),
+            "timestamp": str(timestamp),
             "thread_id": response.get("thread_id", ""),
             "run_id": response.get("run_id", "")
         })
         
     except Exception as e:
         logger.error(f"Error processing chat request: {str(e)}", exc_info=True)
-        return jsonify({"error": str(e)}), 500
+        
+        # Get detailed error information
+        error_type = type(e).__name__
+        error_trace = traceback.format_exc()
+        logger.error(f"Error type: {error_type}")
+        logger.error(f"Error trace: {error_trace}")
+        
+        # Return a detailed error response with timestamp
+        return jsonify({
+            "error": str(e),
+            "error_type": error_type,
+            "content": f"An error occurred: {str(e)}. Please try again or contact support.",
+            "timestamp": datetime.now().isoformat()
+        }), 500
 
 @app.route('/api/upload', methods=['POST'])
 def upload_file():
