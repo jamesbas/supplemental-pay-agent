@@ -10,6 +10,7 @@ import json
 import asyncio
 import requests
 import inspect
+import datetime
 
 import semantic_kernel as sk
 from semantic_kernel.connectors.ai.open_ai import AzureChatCompletion
@@ -663,7 +664,7 @@ class AzureAgentOrchestrator:
                 if not agent_id:
                     error_message = f"No agent found for type: {agent_type} and no fallbacks available"
                     self.logger.error(error_message)
-                    return {"error": error_message}
+                    return {"error": error_message, "timestamp": datetime.datetime.now().isoformat()}
             
             # Add routing context to parameters
             parameters["routing_context"] = routing_info.get("context", "")
@@ -698,7 +699,7 @@ class AzureAgentOrchestrator:
             if response is None:
                 error_message = "Failed to get response from agent"
                 self.logger.error(error_message)
-                return {"error": error_message, "thread_id": thread_id}
+                return {"error": error_message, "thread_id": thread_id, "timestamp": datetime.datetime.now().isoformat()}
             
             # Add routing information to the response
             response["routing_info"] = routing_info
@@ -709,7 +710,7 @@ class AzureAgentOrchestrator:
         except Exception as e:
             error_message = f"Error routing request: {str(e)}"
             self.logger.error(error_message, exc_info=True)
-            return {"error": error_message}
+            return {"error": error_message, "timestamp": datetime.datetime.now().isoformat()}
     
     async def _run_agent(self, thread_id: str, agent_id: str, message_content: str, disable_tools: bool = False) -> Dict[str, Any]:
         """Run a specific Azure AI agent on an existing thread with enhanced error handling and debug options.
@@ -788,7 +789,7 @@ class AzureAgentOrchestrator:
                     except Exception as steps_error:
                         self.logger.error(f"Could not retrieve run steps: {str(steps_error)}")
                     
-                    return {"error": error_msg, "thread_id": thread_id, "run_id": run.id}
+                    return {"error": error_msg, "thread_id": thread_id, "run_id": run.id, "timestamp": datetime.datetime.now().isoformat()}
                 
                 # Exponential backoff
                 await asyncio.sleep(retry_delay)
@@ -798,7 +799,7 @@ class AzureAgentOrchestrator:
             if retry_count >= max_retries:
                 error_msg = f"Maximum retries reached waiting for run {run.id} to complete"
                 self.logger.error(error_msg)
-                return {"error": error_msg, "thread_id": thread_id, "run_id": run.id}
+                return {"error": error_msg, "thread_id": thread_id, "run_id": run.id, "timestamp": datetime.datetime.now().isoformat()}
             
             # Get the messages from the thread
             messages = self.project_client.agents.list_messages(thread_id=thread_id)
@@ -820,17 +821,17 @@ class AzureAgentOrchestrator:
                     if hasattr(last_message, "content") and last_message.content:
                         for content_part in last_message.content:
                             if hasattr(content_part, "text") and hasattr(content_part.text, "value"):
-                                return {"result": content_part.text.value, "thread_id": thread_id, "run_id": run.id}
+                                return {"result": content_part.text.value, "thread_id": thread_id, "run_id": run.id, "timestamp": datetime.datetime.now().isoformat()}
             
             error_msg = "No assistant messages found in thread or message format not recognized"
             self.logger.error(error_msg)
-            return {"error": error_msg, "thread_id": thread_id, "run_id": run.id}
+            return {"error": error_msg, "thread_id": thread_id, "run_id": run.id, "timestamp": datetime.datetime.now().isoformat()}
             
         except Exception as e:
             error_msg = f"Error running agent: {str(e)}"
             self.logger.error(error_msg, exc_info=True)
             # Return structured error response
-            return {"error": error_msg, "thread_id": thread_id}
+            return {"error": error_msg, "thread_id": thread_id, "timestamp": datetime.datetime.now().isoformat()}
 
     async def _run_agent_via_sdk(self, agent_id: str, message_content: str, disable_tools: bool = False) -> Dict[str, Any]:
         """Run a specific Azure AI agent by creating a new thread and sending a message.
@@ -912,7 +913,7 @@ class AzureAgentOrchestrator:
                     except Exception as steps_error:
                         self.logger.error(f"Could not retrieve run steps: {str(steps_error)}")
                     
-                    return {"error": error_msg, "thread_id": thread_id, "run_id": run.id}
+                    return {"error": error_msg, "thread_id": thread_id, "run_id": run.id, "timestamp": datetime.datetime.now().isoformat()}
                 
                 # Exponential backoff
                 await asyncio.sleep(retry_delay)
@@ -922,7 +923,7 @@ class AzureAgentOrchestrator:
             if retry_count >= max_retries:
                 error_msg = f"Maximum retries reached waiting for run {run.id} to complete"
                 self.logger.error(error_msg)
-                return {"error": error_msg, "thread_id": thread_id, "run_id": run.id}
+                return {"error": error_msg, "thread_id": thread_id, "run_id": run.id, "timestamp": datetime.datetime.now().isoformat()}
             
             # Get the messages from the thread
             messages = self.project_client.agents.list_messages(thread_id=thread_id)
@@ -944,13 +945,13 @@ class AzureAgentOrchestrator:
                     if hasattr(last_message, "content") and last_message.content:
                         for content_part in last_message.content:
                             if hasattr(content_part, "text") and hasattr(content_part.text, "value"):
-                                return {"result": content_part.text.value, "thread_id": thread_id, "run_id": run.id}
+                                return {"result": content_part.text.value, "thread_id": thread_id, "run_id": run.id, "timestamp": datetime.datetime.now().isoformat()}
             
             error_msg = "No assistant messages found in thread or message format not recognized"
             self.logger.error(error_msg)
-            return {"error": error_msg, "thread_id": thread_id, "run_id": run.id}
+            return {"error": error_msg, "thread_id": thread_id, "run_id": run.id, "timestamp": datetime.datetime.now().isoformat()}
             
         except Exception as e:
             error_msg = f"Error in SDK-based agent run: {str(e)}"
             self.logger.error(error_msg, exc_info=True)
-            return {"error": error_msg} 
+            return {"error": error_msg, "timestamp": datetime.datetime.now().isoformat()} 
