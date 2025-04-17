@@ -4,9 +4,21 @@ import { useState, useRef, useEffect } from "react"
 import { useSearchParams, useRouter } from "next/navigation"
 import Image from "next/image"
 import Link from "next/link"
-import { FiSend, FiUpload, FiChevronLeft, FiMoon, FiSun, FiInfo, FiSettings, FiX } from "react-icons/fi"
+import dynamic from "next/dynamic"
+// Remove direct icon imports
+// import { FiSend, FiUpload, FiChevronLeft, FiMoon, FiSun, FiInfo, FiSettings, FiX } from "react-icons/fi"
 import { toast } from "sonner"
 import { useTheme } from "next-themes"
+
+// Dynamically import icons with SSR disabled
+const FiSend = dynamic(() => import('react-icons/fi').then(mod => mod.FiSend), { ssr: false })
+const FiUpload = dynamic(() => import('react-icons/fi').then(mod => mod.FiUpload), { ssr: false })
+const FiChevronLeft = dynamic(() => import('react-icons/fi').then(mod => mod.FiChevronLeft), { ssr: false })
+const FiMoon = dynamic(() => import('react-icons/fi').then(mod => mod.FiMoon), { ssr: false })
+const FiSun = dynamic(() => import('react-icons/fi').then(mod => mod.FiSun), { ssr: false })
+const FiInfo = dynamic(() => import('react-icons/fi').then(mod => mod.FiInfo), { ssr: false })
+const FiSettings = dynamic(() => import('react-icons/fi').then(mod => mod.FiSettings), { ssr: false })
+const FiX = dynamic(() => import('react-icons/fi').then(mod => mod.FiX), { ssr: false })
 
 // Utility function to convert ASCII/Markdown tables to HTML
 const formatTableContent = (content: string): string => {
@@ -19,68 +31,97 @@ const formatTableContent = (content: string): string => {
   
   // Split the content by lines
   const lines = content.split('\n');
-  let htmlContent = content;
   
   // Find table sections (groups of lines with | characters)
   let inTable = false;
   let tableContent = '';
   let formattedContent = '';
+  let headerIdentified = false;
   
   for (let i = 0; i < lines.length; i++) {
-    const line = lines[i];
+    const line = lines[i].trim();
     
     // Check if line is part of a table
-    if (line.includes('|') && (line.trim().startsWith('|') || line.trim().endsWith('|'))) {
+    if (line.includes('|') && (line.startsWith('|') || line.endsWith('|'))) {
       if (!inTable) {
         inTable = true;
-        tableContent = '<table class="formatted-table">\n<thead>\n';
+        tableContent = '<div class="table-container"><table class="formatted-table">\n<thead>\n';
+        headerIdentified = false;
       }
       
-      // Skip separator lines
-      if (line.replace(/[|\-+\s]/g, '') === '') {
-        if (tableContent.includes('<thead>') && !tableContent.includes('</thead>')) {
-          tableContent += '</thead>\n<tbody>\n';
+      // Check if this is a separator line (---|---|---)
+      const isSeparator = line.replace(/[|\-+\s]/g, '') === '';
+      
+      if (isSeparator) {
+        // If we find a separator line, the previous line was a header
+        if (!headerIdentified && tableContent.includes('<thead>')) {
+          headerIdentified = true;
+          continue;
         }
+        
+        // If we already processed the header and find another separator, it might be a table footer or just formatting
         continue;
       }
       
       // Process table row
       const cells = line.split('|').filter(cell => cell !== '');
-      tableContent += '<tr>\n';
       
-      cells.forEach(cell => {
-        const tag = tableContent.includes('<tbody>') ? 'td' : 'th';
-        tableContent += `  <${tag}>${cell.trim()}</${tag}>\n`;
-      });
-      
-      tableContent += '</tr>\n';
+      // Determine if we're still processing headers or if we've moved to the body
+      if (!headerIdentified) {
+        tableContent += '<tr>\n';
+        cells.forEach(cell => {
+          tableContent += `  <th>${cell.trim()}</th>\n`;
+        });
+        tableContent += '</tr>\n';
+      } else {
+        // If this is the first row after headers, close the header and start the body
+        if (tableContent.includes('<thead>') && !tableContent.includes('</thead>')) {
+          tableContent += '</thead>\n<tbody>\n';
+        }
+        
+        tableContent += '<tr>\n';
+        cells.forEach(cell => {
+          tableContent += `  <td>${cell.trim()}</td>\n`;
+        });
+        tableContent += '</tr>\n';
+      }
     } else {
       if (inTable) {
         inTable = false;
+        // Close any open tags
         if (tableContent.includes('<tbody>')) {
           tableContent += '</tbody>\n';
+        } else if (headerIdentified) {
+          // If we identified a header but never opened a body, add an empty tbody
+          tableContent += '</thead>\n<tbody></tbody>\n';
         } else {
-          tableContent += '</thead>\n';
+          // If no header separator was found, treat the entire table as tbody
+          tableContent = tableContent.replace('<thead>', '<tbody>');
+          tableContent += '</tbody>\n';
         }
-        tableContent += '</table>\n';
+        tableContent += '</table></div>\n';
         formattedContent += tableContent;
       }
       formattedContent += line + '\n';
     }
   }
   
-  // Close the table if we reached the end
+  // Close the table if we reached the end while still in a table
   if (inTable) {
     if (tableContent.includes('<tbody>')) {
       tableContent += '</tbody>\n';
+    } else if (headerIdentified) {
+      // If we identified a header but never opened a body, add an empty tbody
+      tableContent += '</thead>\n<tbody></tbody>\n';
     } else {
-      tableContent += '</thead>\n';
+      // If no header separator was found, treat the entire table as tbody
+      tableContent = tableContent.replace('<thead>', '<tbody>');
+      tableContent += '</tbody>\n';
     }
-    tableContent += '</table>\n';
+    tableContent += '</table></div>\n';
     formattedContent += tableContent;
   }
   
-  // Return original content if no tables were found
   return formattedContent || content;
 };
 

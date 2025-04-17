@@ -80,13 +80,26 @@
 }
 
 /* Message content styles */
+.message-content {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.message-content .table-container {
+  max-width: 100%;
+  overflow-x: auto;
+  max-height: 60vh;
+  overflow-y: auto;
+  margin: 1rem 0;
+  border: 1px solid hsl(var(--border));
+  border-radius: 0.375rem;
+}
+
 .message-content table {
   border-collapse: collapse;
   width: 100%;
-  margin: 1rem 0;
   font-size: 0.875rem;
-  overflow-x: auto;
-  display: block;
+  margin: 0; /* Changed from margin: 1rem 0 */
 }
 
 .message-content table th,
@@ -99,6 +112,9 @@
 .message-content table th {
   background-color: hsl(var(--muted));
   font-weight: 600;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 .message-content table tr:nth-child(even) {
@@ -109,12 +125,9 @@
 .message-content .formatted-table {
   font-family: monospace;
   font-size: 0.85rem;
-  width: auto;
-  min-width: 50%;
-  margin: 1.5rem 0;
-  border: 1px solid hsl(var(--border));
-  border-radius: 0.375rem;
-  overflow: hidden;
+  width: 100%;
+  border: none;
+  margin: 0;
 }
 
 .message-content .formatted-table th,
@@ -128,6 +141,9 @@
 .message-content .formatted-table thead {
   background-color: hsl(var(--muted));
   font-weight: 600;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 .message-content .formatted-table tbody tr:nth-child(odd) {
